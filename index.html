@@ -312,7 +312,7 @@
 
     /* Toast */
     .toast {
-      position: fixed; bottom: 30px; left: 50%;
+      position: fixed; bottom: 90px; left: 50%;
       transform: translateX(-50%) translateY(100px);
       background: #C8A256; color: #0C0F14;
       padding: 16px 30px; border-radius: 14px;
@@ -320,6 +320,8 @@
       box-shadow: 0 12px 40px rgba(200,162,86,0.3);
       z-index: 1000;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: calc(100% - 32px);
+      text-align: center;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
