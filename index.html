@@ -371,6 +371,24 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #C8A256; border-radius: 3px; }
+
+    /* Mobile responsiveness */
+    @media (max-width: 640px) {
+      .select-card { padding: 14px; }
+      .style-card { padding: 16px; }
+      .palette-dot { width: 24px; height: 24px; }
+      .importance-dot { width: 44px; height: 44px; }
+      .btn-primary, .btn-secondary { padding: 12px 24px; font-size: 15px; }
+      .btn-gold, .btn-whatsapp { padding: 14px 24px; font-size: 14px; }
+      .toast {
+        max-width: calc(100% - 32px);
+        padding: 12px 20px;
+        font-size: 14px;
+        text-align: center;
+      }
+      .toggle-option { padding: 10px 16px; font-size: 14px; }
+      .summary-block { padding: 16px; }
+    }
   </style>
 </head>
 <body>
@@ -378,13 +396,13 @@
 
   <!-- Header -->
   <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-dark-900/85 border-b border-gold-500/15">
-    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-500 to-gold-400 flex items-center justify-center text-white text-lg">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-gold-500 to-gold-400 flex items-center justify-center text-white text-base sm:text-lg">
           🦷
         </div>
         <div>
-          <h1 class="font-display font-bold text-[#E8E2D6] text-lg leading-tight">Axia Odontología</h1>
+          <h1 class="font-display font-bold text-[#E8E2D6] text-base sm:text-lg leading-tight">Axia Odontología</h1>
           <p class="text-xs text-[#D4AF37] font-medium tracking-wider uppercase">Cuestionario Digital</p>
         </div>
       </div>
@@ -399,7 +417,7 @@
   </header>
 
   <!-- Main container -->
-  <main class="relative z-10 max-w-4xl mx-auto px-6 pt-28 pb-32 min-h-screen">
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-24 sm:pt-28 pb-28 sm:pb-32 min-h-screen">
 
     <!-- STEP 0: Bienvenida -->
     <div id="step0" class="step-container active">
@@ -416,7 +434,7 @@
         <p class="text-base text-gray-400 max-w-md mx-auto mb-10">
           Este cuestionario les ayudará a describir sus ideas y necesidades de forma sencilla. Toma aproximadamente <strong class="text-gold-500">5 minutos</strong>.
         </p>
-        <button onclick="goToStep(1)" class="btn-primary text-lg px-12 py-5">
+        <button onclick="goToStep(1)" class="btn-primary text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-5">
           Comenzar
           <i data-lucide="arrow-right" class="inline w-5 h-5 ml-2 align-middle"></i>
         </button>
@@ -427,12 +445,12 @@
     <div id="step1" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 1 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Presencia Digital Deseada</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">Presencia Digital Deseada</h2>
         <p class="text-gray-400">Cuéntennos cómo les gustaría estar presentes en el mundo digital.</p>
       </div>
 
       <div class="mb-10">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿En qué redes sociales les gustaría estar?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿En qué redes sociales les gustaría estar?</h3>
         <p class="text-sm text-gray-400 mb-4">Seleccionen todas las que les interesen</p>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 card-stagger" id="socialCards">
           <div class="select-card text-center" data-field="redes" data-value="Instagram" onclick="toggleCard(this)">
@@ -474,7 +492,7 @@
       </div>
 
       <div class="mb-10">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Cómo les gustaría que los pacientes los encuentren?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Cómo les gustaría que los pacientes los encuentren?</h3>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 card-stagger" id="discoveryCards">
           <div class="select-card text-center" data-field="descubrimiento" data-value="Recomendación boca a boca" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
@@ -509,24 +527,24 @@
     <div id="step2" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 2 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">La Esencia de Axia</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">La Esencia de Axia</h2>
         <p class="text-gray-400">Conocer su identidad nos ayuda a crear textos y diseños que realmente los representen.</p>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-3">¿Qué representa Axia Odontología para ustedes?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-3">¿Qué representa Axia Odontología para ustedes?</h3>
         <p class="text-sm text-gray-400 mb-3">Su filosofía, lo que los hace diferentes, por qué eligieron este camino.</p>
         <textarea class="form-input" id="esencia" placeholder="Cuéntennos con sus propias palabras..." oninput="saveField('esencia', this.value)"></textarea>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-3">¿Cuál es la misión de la clínica?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-3">¿Cuál es la misión de la clínica?</h3>
         <p class="text-sm text-gray-400 mb-3">El propósito principal que los guía como equipo.</p>
         <textarea class="form-input" id="mision" placeholder="Ej: Brindar sonrisas saludables con calidez y tecnología de punta..." oninput="saveField('mision', this.value)"></textarea>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Cuáles son los valores de la clínica?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Cuáles son los valores de la clínica?</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 card-stagger" id="valoresCards">
           <div class="select-card text-center" data-field="valores" data-value="Confianza" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
@@ -572,7 +590,7 @@
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Cómo les gustaría que los pacientes los perciban?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Cómo les gustaría que los pacientes los perciban?</h3>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 card-stagger" id="percepcionCards">
           <div class="select-card text-center" data-field="percepcion" data-value="Profesionales y confiables" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
@@ -612,12 +630,12 @@
     <div id="step3" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 3 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Alcance y Atención</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">Alcance y Atención</h2>
         <p class="text-gray-400">Barranquilla es un destino creciente para turismo dental. ¿Les interesa ese mercado?</p>
       </div>
 
       <div class="mb-10">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Les interesa atender pacientes internacionales?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Les interesa atender pacientes internacionales?</h3>
         <div class="toggle-group" id="intlInterest">
           <div class="toggle-option" data-field="atencion_internacional" data-value="Sí, nos interesa" onclick="selectToggle(this, 'intlInterest'); toggleIntlDetails()">
             <i data-lucide="check-circle" class="w-5 h-5 inline mr-2 align-middle text-green-600"></i>
@@ -636,7 +654,7 @@
 
       <div id="intlDetails" class="hidden">
         <div class="mb-10">
-          <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué necesitarían para atender pacientes del exterior?</h3>
+          <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué necesitarían para atender pacientes del exterior?</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="intlFeaturesCards">
             <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Sitio web en inglés u otros idiomas" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
@@ -667,7 +685,7 @@
         </div>
 
         <div class="mb-8">
-          <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-3">¿De qué países o regiones esperan recibir pacientes?</h3>
+          <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-3">¿De qué países o regiones esperan recibir pacientes?</h3>
           <textarea class="form-input" id="intlPaises" placeholder="Ej: Estados Unidos, Panamá, el Caribe..." oninput="saveField('intl_paises', this.value)"></textarea>
         </div>
       </div>
@@ -677,7 +695,7 @@
     <div id="step4" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 4 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">¿Qué quieren lograr?</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">¿Qué quieren lograr?</h2>
         <p class="text-gray-400">Seleccionen los objetivos más importantes para su clínica.</p>
       </div>
 
@@ -759,7 +777,7 @@
     <div id="step5" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 5 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Funcionalidades Deseadas</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">Funcionalidades Deseadas</h2>
         <p class="text-gray-400">¿Qué herramientas les gustaría tener en su sitio web?</p>
       </div>
 
@@ -826,12 +844,12 @@
     <div id="step6" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 6 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Asistente Virtual y Automatización</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">Asistente Virtual y Automatización</h2>
         <p class="text-gray-400">Un chatbot en WhatsApp puede atender pacientes automáticamente, agendar citas y más.</p>
       </div>
 
       <div class="mb-10">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Les interesa tener un asistente virtual en WhatsApp?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Les interesa tener un asistente virtual en WhatsApp?</h3>
         <div class="toggle-group" id="chatbotInterest">
           <div class="toggle-option" data-field="chatbot_interes" data-value="Sí, nos interesa" onclick="selectToggle(this, 'chatbotInterest')">
             <i data-lucide="check-circle" class="w-5 h-5 inline mr-2 align-middle text-green-600"></i>
@@ -850,7 +868,7 @@
 
       <div id="chatbotDetails" class="hidden">
         <div class="mb-10">
-          <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué les gustaría que hiciera el asistente?</h3>
+          <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué les gustaría que hiciera el asistente?</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="chatbotFeaturesCards">
             <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Responder preguntas frecuentes" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
@@ -886,7 +904,7 @@
         </div>
 
         <div class="mb-10">
-          <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué tan importante es que el chatbot use inteligencia artificial?</h3>
+          <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué tan importante es que el chatbot use inteligencia artificial?</h3>
           <div class="flex items-center gap-3 flex-wrap">
             <span class="text-sm text-gray-400">Poco</span>
             <div class="flex gap-2" id="importanceScale">
@@ -906,7 +924,7 @@
     <div id="step7" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 7 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Secciones del Sitio Web</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">Secciones del Sitio Web</h2>
         <p class="text-gray-400">¿Qué secciones les gustaría incluir en su página?</p>
       </div>
 
@@ -969,7 +987,7 @@
       </div>
 
       <div>
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-3">¿Hay alguna sección que consideren imprescindible?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-3">¿Hay alguna sección que consideren imprescindible?</h3>
         <textarea class="form-input" id="seccionesImprescindibles" placeholder="Cuéntennos si hay algo que no puede faltar..." oninput="saveField('secciones_imprescindibles', this.value)"></textarea>
       </div>
     </div>
@@ -978,7 +996,7 @@
     <div id="step8" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 8 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Estilo Visual</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">Estilo Visual</h2>
         <p class="text-gray-400">Seleccionen los estilos que más les gusten y su paleta de colores preferida. Pueden elegir varios.</p>
       </div>
 
@@ -988,14 +1006,14 @@
         <div class="style-card" data-field="estilos" data-value="Moderno y Minimalista" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Moderno y Minimalista</h3>
+              <h3 class="font-display text-lg sm:text-xl font-semibold text-[#E8E2D6]">Moderno y Minimalista</h3>
               <p class="text-sm text-gray-400">Líneas limpias, mucho espacio, tipografía elegante</p>
             </div>
             <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
-          <div class="flex gap-4 mt-4">
+          <div class="flex flex-wrap gap-2 sm:gap-4 mt-4">
             <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Moderno y Minimalista" data-palette="Blancos + gris claro + acento azul" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #F5F5F5;"></div>
               <div class="palette-dot" style="background: #D1D5DB;"></div>
@@ -1021,14 +1039,14 @@
         <div class="style-card" data-field="estilos" data-value="Cálido y Amigable" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Cálido y Amigable</h3>
+              <h3 class="font-display text-lg sm:text-xl font-semibold text-[#E8E2D6]">Cálido y Amigable</h3>
               <p class="text-sm text-gray-400">Formas redondeadas, colores suaves, sensación acogedora</p>
             </div>
             <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
-          <div class="flex gap-4 mt-4">
+          <div class="flex flex-wrap gap-2 sm:gap-4 mt-4">
             <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Cálido y Amigable" data-palette="Melocotón + rosa suave + terracota" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #FDDCB5;"></div>
               <div class="palette-dot" style="background: #F9A8D4;"></div>
@@ -1054,14 +1072,14 @@
         <div class="style-card" data-field="estilos" data-value="Lujoso y Premium" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Lujoso y Premium</h3>
+              <h3 class="font-display text-lg sm:text-xl font-semibold text-[#E8E2D6]">Lujoso y Premium</h3>
               <p class="text-sm text-gray-400">Tonos oscuros, detalles dorados, tipografía serif</p>
             </div>
             <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
-          <div class="flex gap-4 mt-4">
+          <div class="flex flex-wrap gap-2 sm:gap-4 mt-4">
             <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Lujoso y Premium" data-palette="Negro + dorado + crema" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #1A1A1A;"></div>
               <div class="palette-dot" style="background: #C8A256;"></div>
@@ -1087,14 +1105,14 @@
         <div class="style-card" data-field="estilos" data-value="Clínico y Profesional" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Clínico y Profesional</h3>
+              <h3 class="font-display text-lg sm:text-xl font-semibold text-[#E8E2D6]">Clínico y Profesional</h3>
               <p class="text-sm text-gray-400">Estructura clara, colores institucionales, confianza</p>
             </div>
             <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
-          <div class="flex gap-4 mt-4">
+          <div class="flex flex-wrap gap-2 sm:gap-4 mt-4">
             <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Clínico y Profesional" data-palette="Azul médico + blanco + gris" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #2563EB;"></div>
               <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
@@ -1120,14 +1138,14 @@
         <div class="style-card" data-field="estilos" data-value="Fresco y Juvenil" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Fresco y Juvenil</h3>
+              <h3 class="font-display text-lg sm:text-xl font-semibold text-[#E8E2D6]">Fresco y Juvenil</h3>
               <p class="text-sm text-gray-400">Colores vibrantes, elementos dinámicos, energía</p>
             </div>
             <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
-          <div class="flex gap-4 mt-4">
+          <div class="flex flex-wrap gap-2 sm:gap-4 mt-4">
             <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Fresco y Juvenil" data-palette="Turquesa + coral + amarillo" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #2DD4BF;"></div>
               <div class="palette-dot" style="background: #FB7185;"></div>
@@ -1153,14 +1171,14 @@
         <div class="style-card" data-field="estilos" data-value="Natural y Orgánico" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Natural y Orgánico</h3>
+              <h3 class="font-display text-lg sm:text-xl font-semibold text-[#E8E2D6]">Natural y Orgánico</h3>
               <p class="text-sm text-gray-400">Tonos tierra, texturas naturales, calma</p>
             </div>
             <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
-          <div class="flex gap-4 mt-4">
+          <div class="flex flex-wrap gap-2 sm:gap-4 mt-4">
             <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Natural y Orgánico" data-palette="Verde oliva + beige + terracota" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #6B7E3A;"></div>
               <div class="palette-dot" style="background: #E8DCCA;"></div>
@@ -1186,14 +1204,14 @@
         <div class="style-card" data-field="estilos" data-value="Elegante y Sofisticado" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Elegante y Sofisticado</h3>
+              <h3 class="font-display text-lg sm:text-xl font-semibold text-[#E8E2D6]">Elegante y Sofisticado</h3>
               <p class="text-sm text-gray-400">Balance entre lujo y accesibilidad, detalles cuidados</p>
             </div>
             <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
-          <div class="flex gap-4 mt-4">
+          <div class="flex flex-wrap gap-2 sm:gap-4 mt-4">
             <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Elegante y Sofisticado" data-palette="Gris perla + rosa antiguo + dorado" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #D1D5DB;"></div>
               <div class="palette-dot" style="background: #BE8585;"></div>
@@ -1222,12 +1240,12 @@
     <div id="step9" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 9 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Para Finalizar</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">Para Finalizar</h2>
         <p class="text-gray-400">Déjennos sus datos de contacto y cualquier comentario adicional.</p>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿En cuánto tiempo les gustaría tener su sitio listo?</h3>
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿En cuánto tiempo les gustaría tener su sitio listo?</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 card-stagger" id="timelineCards">
           <div class="select-card text-center" data-field="tiempo" data-value="1-2 semanas" onclick="selectSingle(this, 'timelineCards')">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
@@ -1277,7 +1295,7 @@
     <div id="step10" class="step-container hidden">
       <div class="mb-8">
         <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 10 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Resumen de sus Respuestas</h2>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#E8E2D6] mb-2">Resumen de sus Respuestas</h2>
         <p class="text-gray-400">Revisen que todo esté correcto antes de enviar.</p>
       </div>
 
@@ -1299,7 +1317,7 @@
 
     <!-- Navigation buttons (shown on steps 1-7) -->
     <div id="navButtons" class="hidden fixed bottom-0 left-0 right-0 bg-dark-900/90 backdrop-blur-lg border-t border-gold-500/15 z-40">
-      <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
         <button id="prevBtn" onclick="prevStep()" class="btn-secondary">
           <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2 align-middle"></i>
           Anterior
