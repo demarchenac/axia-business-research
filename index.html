@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axia Odontología — Cuestionario Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: { 900: '#0D4F4F', 800: '#0F6363', 700: '#147878', 600: '#1A8F8F' },
+            gold: { 400: '#D4AF37', 500: '#C8A256', 600: '#B8924A', 700: '#A07D3A' },
+            cream: { 50: '#FFFDF8', 100: '#FAF7F2', 200: '#F3EDE3' },
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: #FAF7F2; overflow-x: hidden; }
+
+    /* Animated gold tooth background */
+    .tooth-bg {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .tooth-bg::before {
+      content: '🦷';
+      position: absolute;
+      font-size: 300px;
+      opacity: 0.03;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: floatTooth 20s ease-in-out infinite;
+    }
+    @keyframes floatTooth {
+      0%, 100% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+      25% { transform: translate(-48%, -52%) rotate(3deg) scale(1.02); }
+      50% { transform: translate(-50%, -48%) rotate(-2deg) scale(0.98); }
+      75% { transform: translate(-52%, -50%) rotate(1deg) scale(1.01); }
+    }
+
+    /* Gold shimmer on progress bar */
+    .progress-fill {
+      background: linear-gradient(90deg, #C8A256, #D4AF37, #E8C84A, #D4AF37, #C8A256);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Step transitions */
+    .step-container {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .step-container.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .step-container.exit-left {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+    .step-container.exit-right {
+      opacity: 0;
+      transform: translateX(60px);
+    }
+
+    /* Staggered card animation */
+    .card-stagger > * {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .card-stagger > *:nth-child(1) { animation-delay: 0.05s; }
+    .card-stagger > *:nth-child(2) { animation-delay: 0.1s; }
+    .card-stagger > *:nth-child(3) { animation-delay: 0.15s; }
+    .card-stagger > *:nth-child(4) { animation-delay: 0.2s; }
+    .card-stagger > *:nth-child(5) { animation-delay: 0.25s; }
+    .card-stagger > *:nth-child(6) { animation-delay: 0.3s; }
+    .card-stagger > *:nth-child(7) { animation-delay: 0.35s; }
+    .card-stagger > *:nth-child(8) { animation-delay: 0.4s; }
+    .card-stagger > *:nth-child(9) { animation-delay: 0.45s; }
+    .card-stagger > *:nth-child(10) { animation-delay: 0.5s; }
+    .card-stagger > *:nth-child(11) { animation-delay: 0.55s; }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Selection card */
+    .select-card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .select-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #C8A256, #D4AF37);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .select-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(13,79,79,0.1);
+      border-color: rgba(200,162,86,0.3);
+    }
+    .select-card.selected {
+      border-color: #C8A256;
+      background: rgba(200,162,86,0.08);
+      box-shadow: 0 8px 32px rgba(200,162,86,0.15);
+    }
+    .select-card.selected::before {
+      transform: scaleX(1);
+    }
+    .select-card .check-mark {
+      position: absolute; top: 10px; right: 10px;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #C8A256; color: white;
+      display: flex; align-items: center; justify-content: center;
+      transform: scale(0);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .select-card.selected .check-mark {
+      transform: scale(1);
+    }
+
+    /* Style preview cards */
+    .style-card {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(12px);
+      border: 2px solid transparent;
+      border-radius: 20px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .style-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(13,79,79,0.12);
+    }
+    .style-card.selected {
+      border-color: #C8A256;
+      box-shadow: 0 8px 32px rgba(200,162,86,0.2);
+    }
+
+    .palette-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.8);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .palette-dot:hover { transform: scale(1.15); }
+    .palette-dot.selected-palette {
+      outline: 3px solid #C8A256;
+      outline-offset: 2px;
+      transform: scale(1.1);
+    }
+
+    /* Importance scale */
+    .importance-dot {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 2px solid #ddd;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; font-size: 14px; color: #999;
+    }
+    .importance-dot:hover { border-color: #C8A256; color: #C8A256; }
+    .importance-dot.active {
+      background: linear-gradient(135deg, #C8A256, #D4AF37);
+      border-color: transparent; color: white;
+    }
+
+    /* Input styling */
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #E8E2D6;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: #C8A256;
+      box-shadow: 0 0 0 4px rgba(200,162,86,0.1);
+    }
+    .form-input::placeholder { color: #B8AFA0; }
+
+    textarea.form-input { resize: vertical; min-height: 100px; }
+
+    /* Shake animation for validation */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+    .shake { animation: shake 0.5s ease; }
+
+    /* CTA button */
+    .btn-primary {
+      background: linear-gradient(135deg, #0D4F4F, #147878);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(13,79,79,0.3);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      background: transparent;
+      color: #0D4F4F;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      border: 2px solid #0D4F4F;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+      background: rgba(13,79,79,0.05);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #C8A256, #D4AF37);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(200,162,86,0.3);
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.3);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 30px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0D4F4F; color: white;
+      padding: 16px 30px; border-radius: 14px;
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      z-index: 1000;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* Summary section */
+    .summary-block {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      border-left: 4px solid #C8A256;
+    }
+    .summary-block h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: #0D4F4F;
+      margin-bottom: 8px;
+    }
+    .summary-block p, .summary-block li {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Chatbot toggle */
+    .toggle-group {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .toggle-option {
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: 2px solid #E8E2D6;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.7);
+    }
+    .toggle-option:hover {
+      border-color: rgba(200,162,86,0.4);
+    }
+    .toggle-option.selected {
+      border-color: #C8A256;
+      background: rgba(200,162,86,0.1);
+      color: #0D4F4F;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #C8A256; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <div class="tooth-bg"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-cream-100/80 border-b border-gold-500/10">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-500 to-gold-400 flex items-center justify-center text-white text-lg">
+          🦷
+        </div>
+        <div>
+          <h1 class="font-display font-bold text-teal-900 text-lg leading-tight">Axia Odontología</h1>
+          <p class="text-xs text-gold-600 font-medium tracking-wider uppercase">Cuestionario Digital</p>
+        </div>
+      </div>
+      <div class="text-right hidden sm:block">
+        <p class="text-xs text-gray-400 font-body">Paso <span id="stepLabel">0</span> de 8</p>
+      </div>
+    </div>
+    <!-- Progress bar -->
+    <div class="h-1 bg-cream-200">
+      <div id="progressBar" class="h-full progress-fill rounded-r-full transition-all duration-700 ease-out" style="width: 0%"></div>
+    </div>
+  </header>
+
+  <!-- Main container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-6 pt-28 pb-32 min-h-screen">
+
+    <!-- STEP 0: Bienvenida -->
+    <div id="step0" class="step-container active">
+      <div class="text-center py-12">
+        <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-gold-500 to-gold-400 mb-8 shadow-lg shadow-gold-500/20">
+          <span class="text-5xl">🦷</span>
+        </div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-teal-900 mb-4 leading-tight">
+          Bienvenidos a<br><span class="text-gold-500">Axia Odontología</span>
+        </h2>
+        <p class="text-lg text-gray-500 max-w-xl mx-auto mb-4 font-light leading-relaxed">
+          Queremos entender qué necesitan para llevar su clínica al mundo digital.
+        </p>
+        <p class="text-base text-gray-400 max-w-md mx-auto mb-10">
+          Este cuestionario les ayudará a describir sus ideas y necesidades de forma sencilla. Toma aproximadamente <strong class="text-teal-800">5 minutos</strong>.
+        </p>
+        <button onclick="goToStep(1)" class="btn-primary text-lg px-12 py-5">
+          Comenzar
+          <i data-lucide="arrow-right" class="inline w-5 h-5 ml-2 align-middle"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 1: Presencia Digital Deseada -->
+    <div id="step1" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 1 de 8</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Presencia Digital Deseada</h2>
+        <p class="text-gray-400">Cuéntennos cómo les gustaría estar presentes en el mundo digital.</p>
+      </div>
+
+      <div class="mb-10">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿En qué redes sociales les gustaría estar?</h3>
+        <p class="text-sm text-gray-400 mb-4">Seleccionen todas las que les interesen</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 card-stagger" id="socialCards">
+          <div class="select-card text-center" data-field="redes" data-value="Instagram" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="instagram" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Instagram</p>
+          </div>
+          <div class="select-card text-center" data-field="redes" data-value="Facebook" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="facebook" class="w-4 h-4"></i></div>
+            <i data-lucide="facebook" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Facebook</p>
+          </div>
+          <div class="select-card text-center" data-field="redes" data-value="TikTok" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="clapperboard" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">TikTok</p>
+          </div>
+          <div class="select-card text-center" data-field="redes" data-value="YouTube" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="youtube" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">YouTube</p>
+          </div>
+          <div class="select-card text-center" data-field="redes" data-value="Google Business" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="map-pin" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Google Business</p>
+          </div>
+          <div class="select-card text-center" data-field="redes" data-value="LinkedIn" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="linkedin" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">LinkedIn</p>
+          </div>
+          <div class="select-card text-center" data-field="redes" data-value="X / Twitter" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="twitter" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">X / Twitter</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-10">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Cómo les gustaría que los pacientes los encuentren?</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 card-stagger" id="discoveryCards">
+          <div class="select-card text-center" data-field="descubrimiento" data-value="Recomendación boca a boca" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="users" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Recomendación</p>
+          </div>
+          <div class="select-card text-center" data-field="descubrimiento" data-value="Redes sociales" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="share-2" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Redes sociales</p>
+          </div>
+          <div class="select-card text-center" data-field="descubrimiento" data-value="Búsquedas en Google" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="search" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Google</p>
+          </div>
+          <div class="select-card text-center" data-field="descubrimiento" data-value="Publicidad pagada" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="megaphone" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Publicidad</p>
+          </div>
+          <div class="select-card text-center" data-field="descubrimiento" data-value="Otro" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="plus-circle" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Otro</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Objetivos -->
+    <div id="step2" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 2 de 8</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">¿Qué quieren lograr?</h2>
+        <p class="text-gray-400">Seleccionen los objetivos más importantes para su clínica.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="goalsCards">
+        <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Atraer nuevos pacientes" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
+            <i data-lucide="user-plus" class="w-6 h-6 text-teal-700"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-teal-900">Atraer nuevos pacientes</p>
+            <p class="text-sm text-gray-400 mt-1">Que más personas conozcan la clínica</p>
+          </div>
+        </div>
+        <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Mostrar servicios y tratamientos" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
+            <i data-lucide="stethoscope" class="w-6 h-6 text-teal-700"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-teal-900">Mostrar servicios y tratamientos</p>
+            <p class="text-sm text-gray-400 mt-1">Que los pacientes vean lo que ofrecen</p>
+          </div>
+        </div>
+        <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Agendar citas en línea" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
+            <i data-lucide="calendar-check" class="w-6 h-6 text-teal-700"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-teal-900">Agendar citas en línea</p>
+            <p class="text-sm text-gray-400 mt-1">Que los pacientes reserven sin llamar</p>
+          </div>
+        </div>
+        <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Presentar al equipo médico" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
+            <i data-lucide="users" class="w-6 h-6 text-teal-700"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-teal-900">Presentar al equipo médico</p>
+            <p class="text-sm text-gray-400 mt-1">Que conozcan a los profesionales</p>
+          </div>
+        </div>
+        <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Generar confianza y credibilidad" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
+            <i data-lucide="shield-check" class="w-6 h-6 text-teal-700"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-teal-900">Generar confianza y credibilidad</p>
+            <p class="text-sm text-gray-400 mt-1">Transmitir profesionalismo y seguridad</p>
+          </div>
+        </div>
+        <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Compartir contenido educativo" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
+            <i data-lucide="book-open" class="w-6 h-6 text-teal-700"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-teal-900">Compartir contenido educativo</p>
+            <p class="text-sm text-gray-400 mt-1">Artículos y tips de salud dental</p>
+          </div>
+        </div>
+        <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Vender productos o tratamientos en línea" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
+            <i data-lucide="shopping-bag" class="w-6 h-6 text-teal-700"></i>
+          </div>
+          <div>
+            <p class="font-semibold text-teal-900">Vender productos o tratamientos</p>
+            <p class="text-sm text-gray-400 mt-1">Ofrecer productos o paquetes en línea</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Funcionalidades -->
+    <div id="step3" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 3 de 8</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Funcionalidades Deseadas</h2>
+        <p class="text-gray-400">¿Qué herramientas les gustaría tener en su sitio web?</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="featuresCards">
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Agenda de citas en línea" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="calendar" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Agenda de citas en línea</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Catálogo de servicios" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="list" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Catálogo de servicios</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Perfiles del equipo" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="user-circle" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Perfiles del equipo</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Testimonios de pacientes" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="message-circle" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Testimonios de pacientes</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Formulario de contacto" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="mail" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Formulario de contacto</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Blog / Artículos educativos" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="pen-line" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Blog / Artículos educativos</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Chat en vivo" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="message-square" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Chat en vivo</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Galería de antes y después" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="images" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Galería de antes/después</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Mapa de ubicación" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="map" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Mapa de ubicación</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Integración con WhatsApp" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="smartphone" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Integración con WhatsApp</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Tienda en línea" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="shopping-cart" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900">Tienda en línea</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Chatbot y Automatización -->
+    <div id="step4" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 4 de 8</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Asistente Virtual y Automatización</h2>
+        <p class="text-gray-400">Un chatbot en WhatsApp puede atender pacientes automáticamente, agendar citas y más.</p>
+      </div>
+
+      <div class="mb-10">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Les interesa tener un asistente virtual en WhatsApp?</h3>
+        <div class="toggle-group" id="chatbotInterest">
+          <div class="toggle-option" data-field="chatbot_interes" data-value="Sí, nos interesa" onclick="selectToggle(this, 'chatbotInterest')">
+            <i data-lucide="check-circle" class="w-5 h-5 inline mr-2 align-middle text-green-600"></i>
+            Sí, nos interesa
+          </div>
+          <div class="toggle-option" data-field="chatbot_interes" data-value="No por ahora" onclick="selectToggle(this, 'chatbotInterest')">
+            <i data-lucide="x-circle" class="w-5 h-5 inline mr-2 align-middle text-red-400"></i>
+            No por ahora
+          </div>
+          <div class="toggle-option" data-field="chatbot_interes" data-value="Me gustaría saber más" onclick="selectToggle(this, 'chatbotInterest')">
+            <i data-lucide="help-circle" class="w-5 h-5 inline mr-2 align-middle text-blue-400"></i>
+            Me gustaría saber más
+          </div>
+        </div>
+      </div>
+
+      <div id="chatbotDetails" class="hidden">
+        <div class="mb-10">
+          <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Qué les gustaría que hiciera el asistente?</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="chatbotFeaturesCards">
+            <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Responder preguntas frecuentes" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="help-circle" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Responder preguntas frecuentes</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Agendar citas automáticamente" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="calendar-plus" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Agendar citas automáticamente</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Enviar recordatorios de citas" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="bell" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Enviar recordatorios de citas</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Conectar con Google Calendar" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="link" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Conectar con Google Calendar</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Enviar info de servicios y precios" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="receipt" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Enviar info de servicios y precios</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Atender fuera de horario" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="moon" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Atender solicitudes fuera de horario</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-10">
+          <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Qué tan importante es que el chatbot use inteligencia artificial?</h3>
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="text-sm text-gray-400">Poco</span>
+            <div class="flex gap-2" id="importanceScale">
+              <div class="importance-dot" data-value="1" onclick="selectImportance(1)">1</div>
+              <div class="importance-dot" data-value="2" onclick="selectImportance(2)">2</div>
+              <div class="importance-dot" data-value="3" onclick="selectImportance(3)">3</div>
+              <div class="importance-dot" data-value="4" onclick="selectImportance(4)">4</div>
+              <div class="importance-dot" data-value="5" onclick="selectImportance(5)">5</div>
+            </div>
+            <span class="text-sm text-gray-400">Muy importante</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Secciones -->
+    <div id="step5" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 5 de 8</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Secciones del Sitio Web</h2>
+        <p class="text-gray-400">¿Qué secciones les gustaría incluir en su página?</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger mb-10" id="sectionsCards">
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Inicio / Página principal" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="home" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Inicio / Página principal</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Sobre Nosotros / Nuestra Historia" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="info" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Sobre Nosotros</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Servicios y Tratamientos (detallado)" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="stethoscope" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Servicios y Tratamientos</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Nuestro Equipo" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="users" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Nuestro Equipo</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Blog / Artículos de Salud Dental" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="newspaper" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Blog / Artículos</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Preguntas Frecuentes (FAQ)" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="circle-help" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Preguntas Frecuentes</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Casos de Éxito / Antes y Después" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="sparkles" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Antes y Después</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Testimonios" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="quote" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Testimonios</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Contacto" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="phone" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Contacto</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Promociones / Ofertas" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="tag" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Promociones / Ofertas</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Portal de Pacientes (área privada)" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="lock" class="w-6 h-6 text-teal-700 shrink-0"></i>
+          <p class="font-medium text-teal-900 text-sm">Portal de Pacientes</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-3">¿Hay alguna sección que consideren imprescindible?</h3>
+        <textarea class="form-input" id="seccionesImprescindibles" placeholder="Cuéntennos si hay algo que no puede faltar..." oninput="saveField('secciones_imprescindibles', this.value)"></textarea>
+      </div>
+    </div>
+
+    <!-- STEP 6: Estilo Visual -->
+    <div id="step6" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 6 de 8</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Estilo Visual</h2>
+        <p class="text-gray-400">Seleccionen los estilos que más les gusten y su paleta de colores preferida. Pueden elegir varios.</p>
+      </div>
+
+      <div class="space-y-6 card-stagger" id="styleCards">
+
+        <!-- Moderno y Minimalista -->
+        <div class="style-card" data-field="estilos" data-value="Moderno y Minimalista" onclick="toggleStyleCard(this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h3 class="font-display text-xl font-semibold text-teal-900">Moderno y Minimalista</h3>
+              <p class="text-sm text-gray-400">Líneas limpias, mucho espacio, tipografía elegante</p>
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+              <i data-lucide="check" class="w-4 h-4 text-white"></i>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-4">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Moderno y Minimalista" data-palette="Blancos + gris claro + acento azul" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #F5F5F5;"></div>
+              <div class="palette-dot" style="background: #D1D5DB;"></div>
+              <div class="palette-dot" style="background: #3B82F6;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Azul</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Moderno y Minimalista" data-palette="Blancos + negro + verde menta" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
+              <div class="palette-dot" style="background: #1A1A1A;"></div>
+              <div class="palette-dot" style="background: #34D399;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Menta</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Moderno y Minimalista" data-palette="Crema + gris cálido + dorado" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #FAF7F2;"></div>
+              <div class="palette-dot" style="background: #9CA3AF;"></div>
+              <div class="palette-dot" style="background: #C8A256;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Dorado</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cálido y Amigable -->
+        <div class="style-card" data-field="estilos" data-value="Cálido y Amigable" onclick="toggleStyleCard(this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h3 class="font-display text-xl font-semibold text-teal-900">Cálido y Amigable</h3>
+              <p class="text-sm text-gray-400">Formas redondeadas, colores suaves, sensación acogedora</p>
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+              <i data-lucide="check" class="w-4 h-4 text-white"></i>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-4">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Cálido y Amigable" data-palette="Melocotón + rosa suave + terracota" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #FDDCB5;"></div>
+              <div class="palette-dot" style="background: #F9A8D4;"></div>
+              <div class="palette-dot" style="background: #C2705A;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Terracota</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Cálido y Amigable" data-palette="Crema + verde salvia + marrón" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #FEF3C7;"></div>
+              <div class="palette-dot" style="background: #86EFAC;"></div>
+              <div class="palette-dot" style="background: #8B6F47;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Salvia</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Cálido y Amigable" data-palette="Lavanda + rosa pálido + lila" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #DDD6FE;"></div>
+              <div class="palette-dot" style="background: #FBCFE8;"></div>
+              <div class="palette-dot" style="background: #A78BFA;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Lavanda</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lujoso y Premium -->
+        <div class="style-card" data-field="estilos" data-value="Lujoso y Premium" onclick="toggleStyleCard(this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h3 class="font-display text-xl font-semibold text-teal-900">Lujoso y Premium</h3>
+              <p class="text-sm text-gray-400">Tonos oscuros, detalles dorados, tipografía serif</p>
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+              <i data-lucide="check" class="w-4 h-4 text-white"></i>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-4">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Lujoso y Premium" data-palette="Negro + dorado + crema" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #1A1A1A;"></div>
+              <div class="palette-dot" style="background: #C8A256;"></div>
+              <div class="palette-dot" style="background: #FAF7F2;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Dorado</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Lujoso y Premium" data-palette="Azul marino + cobre + blanco" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #1E3A5F;"></div>
+              <div class="palette-dot" style="background: #B87333;"></div>
+              <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Cobre</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Lujoso y Premium" data-palette="Esmeralda + dorado + negro" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #065F46;"></div>
+              <div class="palette-dot" style="background: #D4AF37;"></div>
+              <div class="palette-dot" style="background: #111827;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Esmeralda</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clínico y Profesional -->
+        <div class="style-card" data-field="estilos" data-value="Clínico y Profesional" onclick="toggleStyleCard(this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h3 class="font-display text-xl font-semibold text-teal-900">Clínico y Profesional</h3>
+              <p class="text-sm text-gray-400">Estructura clara, colores institucionales, confianza</p>
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+              <i data-lucide="check" class="w-4 h-4 text-white"></i>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-4">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Clínico y Profesional" data-palette="Azul médico + blanco + gris" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #2563EB;"></div>
+              <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
+              <div class="palette-dot" style="background: #9CA3AF;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Azul</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Clínico y Profesional" data-palette="Teal + blanco + gris oscuro" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #0D4F4F;"></div>
+              <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
+              <div class="palette-dot" style="background: #374151;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Teal</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Clínico y Profesional" data-palette="Azul cielo + verde menta + blanco" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #7DD3FC;"></div>
+              <div class="palette-dot" style="background: #6EE7B7;"></div>
+              <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Cielo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fresco y Juvenil -->
+        <div class="style-card" data-field="estilos" data-value="Fresco y Juvenil" onclick="toggleStyleCard(this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h3 class="font-display text-xl font-semibold text-teal-900">Fresco y Juvenil</h3>
+              <p class="text-sm text-gray-400">Colores vibrantes, elementos dinámicos, energía</p>
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+              <i data-lucide="check" class="w-4 h-4 text-white"></i>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-4">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Fresco y Juvenil" data-palette="Turquesa + coral + amarillo" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #2DD4BF;"></div>
+              <div class="palette-dot" style="background: #FB7185;"></div>
+              <div class="palette-dot" style="background: #FBBF24;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Coral</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Fresco y Juvenil" data-palette="Violeta + rosa neón + azul eléctrico" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #8B5CF6;"></div>
+              <div class="palette-dot" style="background: #F472B6;"></div>
+              <div class="palette-dot" style="background: #3B82F6;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Neón</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Fresco y Juvenil" data-palette="Verde lima + naranja + blanco" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #84CC16;"></div>
+              <div class="palette-dot" style="background: #F97316;"></div>
+              <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Lima</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Natural y Orgánico -->
+        <div class="style-card" data-field="estilos" data-value="Natural y Orgánico" onclick="toggleStyleCard(this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h3 class="font-display text-xl font-semibold text-teal-900">Natural y Orgánico</h3>
+              <p class="text-sm text-gray-400">Tonos tierra, texturas naturales, calma</p>
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+              <i data-lucide="check" class="w-4 h-4 text-white"></i>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-4">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Natural y Orgánico" data-palette="Verde oliva + beige + terracota" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #6B7E3A;"></div>
+              <div class="palette-dot" style="background: #E8DCCA;"></div>
+              <div class="palette-dot" style="background: #C2705A;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Oliva</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Natural y Orgánico" data-palette="Arena + verde bosque + marrón" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #D4C5A9;"></div>
+              <div class="palette-dot" style="background: #166534;"></div>
+              <div class="palette-dot" style="background: #78350F;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Bosque</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Natural y Orgánico" data-palette="Hueso + verde salvia + madera" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #F5F0E8;"></div>
+              <div class="palette-dot" style="background: #86EFAC;"></div>
+              <div class="palette-dot" style="background: #92400E;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Salvia</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Elegante y Sofisticado -->
+        <div class="style-card" data-field="estilos" data-value="Elegante y Sofisticado" onclick="toggleStyleCard(this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h3 class="font-display text-xl font-semibold text-teal-900">Elegante y Sofisticado</h3>
+              <p class="text-sm text-gray-400">Balance entre lujo y accesibilidad, detalles cuidados</p>
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+              <i data-lucide="check" class="w-4 h-4 text-white"></i>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-4">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Elegante y Sofisticado" data-palette="Gris perla + rosa antiguo + dorado" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #D1D5DB;"></div>
+              <div class="palette-dot" style="background: #BE8585;"></div>
+              <div class="palette-dot" style="background: #C8A256;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Perla</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Elegante y Sofisticado" data-palette="Azul acero + blanco + bronce" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #4B6D8F;"></div>
+              <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
+              <div class="palette-dot" style="background: #CD7F32;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Acero</span>
+            </div>
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Elegante y Sofisticado" data-palette="Nude + grafito + oro rosa" onclick="event.stopPropagation(); selectPalette(this)">
+              <div class="palette-dot" style="background: #E8D5C4;"></div>
+              <div class="palette-dot" style="background: #374151;"></div>
+              <div class="palette-dot" style="background: #E8A598;"></div>
+              <span class="text-xs text-gray-400 hidden sm:inline">Oro rosa</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- STEP 7: Info de Contacto -->
+    <div id="step7" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 7 de 8</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Para Finalizar</h2>
+        <p class="text-gray-400">Déjennos sus datos de contacto y cualquier comentario adicional.</p>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿En cuánto tiempo les gustaría tener su sitio listo?</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 card-stagger" id="timelineCards">
+          <div class="select-card text-center" data-field="tiempo" data-value="1-2 semanas" onclick="selectSingle(this, 'timelineCards')">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="zap" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">1-2 semanas</p>
+          </div>
+          <div class="select-card text-center" data-field="tiempo" data-value="1 mes" onclick="selectSingle(this, 'timelineCards')">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="clock" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">1 mes</p>
+          </div>
+          <div class="select-card text-center" data-field="tiempo" data-value="2-3 meses" onclick="selectSingle(this, 'timelineCards')">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="calendar" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">2-3 meses</p>
+          </div>
+          <div class="select-card text-center" data-field="tiempo" data-value="No tengo prisa" onclick="selectSingle(this, 'timelineCards')">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="coffee" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">No tengo prisa</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div>
+          <label class="block text-sm font-medium text-teal-900 mb-2">Nombre de contacto *</label>
+          <input type="text" class="form-input" id="contactName" placeholder="Su nombre completo" oninput="saveField('nombre_contacto', this.value)">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-teal-900 mb-2">Teléfono *</label>
+          <input type="tel" class="form-input" id="contactPhone" placeholder="+57 300 000 0000" oninput="saveField('telefono', this.value)">
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-teal-900 mb-2">Correo electrónico</label>
+          <input type="email" class="form-input" id="contactEmail" placeholder="correo@ejemplo.com" oninput="saveField('email', this.value)">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-teal-900 mb-2">¿Algún comentario adicional?</label>
+        <textarea class="form-input" id="comments" placeholder="Cualquier idea, referencia o detalle que quieran compartir..." oninput="saveField('comentarios', this.value)"></textarea>
+      </div>
+    </div>
+
+    <!-- STEP 8: Resumen -->
+    <div id="step8" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 8 de 8</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Resumen de sus Respuestas</h2>
+        <p class="text-gray-400">Revisen que todo esté correcto antes de enviar.</p>
+      </div>
+
+      <div id="summaryContent" class="mb-10 max-h-[60vh] overflow-y-auto pr-2">
+        <!-- Generated dynamically -->
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button onclick="copyToClipboard()" class="btn-gold flex items-center justify-center gap-2">
+          <i data-lucide="clipboard-copy" class="w-5 h-5"></i>
+          Copiar al portapapeles
+        </button>
+        <button onclick="sendWhatsApp()" class="btn-whatsapp">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enviar por WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation buttons (shown on steps 1-7) -->
+    <div id="navButtons" class="hidden fixed bottom-0 left-0 right-0 bg-cream-100/90 backdrop-blur-lg border-t border-gold-500/10 z-40">
+      <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+        <button id="prevBtn" onclick="prevStep()" class="btn-secondary">
+          <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2 align-middle"></i>
+          Anterior
+        </button>
+        <button id="nextBtn" onclick="nextStep()" class="btn-primary">
+          Siguiente
+          <i data-lucide="arrow-right" class="w-4 h-4 inline ml-2 align-middle"></i>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 text-center py-8 border-t border-gold-500/10">
+    <p class="text-sm text-gray-400 font-body">Cuestionario realizado por <span class="text-teal-800 font-medium">Cristhian De Marchena</span></p>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // ==========================================
+    // STATE MANAGEMENT
+    // ==========================================
+    let currentStep = 0;
+    const totalSteps = 9; // 0-8
+
+    // Load saved data or initialize
+    let formData = JSON.parse(localStorage.getItem('axia_form_data')) || {
+      redes: [],
+      descubrimiento: [],
+      objetivos: [],
+      funcionalidades: [],
+      chatbot_interes: '',
+      chatbot_funciones: [],
+      chatbot_importancia_ia: 0,
+      secciones: [],
+      secciones_imprescindibles: '',
+      estilos: [],
+      paletas: {},
+      tiempo: '',
+      nombre_contacto: '',
+      telefono: '',
+      email: '',
+      comentarios: ''
+    };
+
+    function saveData() {
+      localStorage.setItem('axia_form_data', JSON.stringify(formData));
+    }
+
+    function saveField(field, value) {
+      formData[field] = value;
+      saveData();
+    }
+
+    // ==========================================
+    // NAVIGATION
+    // ==========================================
+    function goToStep(step) {
+      const currentEl = document.getElementById(`step${currentStep}`);
+      const nextEl = document.getElementById(`step${step}`);
+
+      // Exit animation
+      if (step > currentStep) {
+        currentEl.classList.add('exit-left');
+      } else {
+        currentEl.classList.add('exit-right');
+      }
+      currentEl.classList.remove('active');
+
+      setTimeout(() => {
+        currentEl.classList.add('hidden');
+        currentEl.classList.remove('exit-left', 'exit-right');
+
+        nextEl.classList.remove('hidden');
+        // Trigger reflow for animation
+        void nextEl.offsetWidth;
+        nextEl.classList.add('active');
+
+        currentStep = step;
+        updateUI();
+
+        // Re-init lucide icons for new step
+        lucide.createIcons();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Generate summary if on last step
+        if (currentStep === 8) {
+          generateSummary();
+        }
+      }, 300);
+    }
+
+    function nextStep() {
+      if (!validateStep(currentStep)) return;
+      if (currentStep < 8) goToStep(currentStep + 1);
+    }
+
+    function prevStep() {
+      if (currentStep > 0) goToStep(currentStep - 1);
+    }
+
+    function updateUI() {
+      // Progress bar
+      const progress = currentStep === 0 ? 0 : (currentStep / 8) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+
+      // Step label
+      document.getElementById('stepLabel').textContent = currentStep === 0 ? '0' : currentStep;
+
+      // Nav buttons
+      const nav = document.getElementById('navButtons');
+      if (currentStep === 0 || currentStep === 8) {
+        nav.classList.add('hidden');
+      } else {
+        nav.classList.remove('hidden');
+      }
+
+      // Hide prev on step 1
+      document.getElementById('prevBtn').style.visibility = currentStep <= 1 ? 'hidden' : 'visible';
+
+      // Change next to "Ver Resumen" on step 7
+      const nextBtn = document.getElementById('nextBtn');
+      if (currentStep === 7) {
+        nextBtn.innerHTML = 'Ver Resumen <i data-lucide="check-circle" class="w-4 h-4 inline ml-2 align-middle"></i>';
+      } else {
+        nextBtn.innerHTML = 'Siguiente <i data-lucide="arrow-right" class="w-4 h-4 inline ml-2 align-middle"></i>';
+      }
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // VALIDATION
+    // ==========================================
+    function validateStep(step) {
+      switch (step) {
+        case 1:
+          if (formData.redes.length === 0) {
+            shakeElement('socialCards');
+            showToast('Seleccionen al menos una red social');
+            return false;
+          }
+          return true;
+        case 2:
+          if (formData.objetivos.length === 0) {
+            shakeElement('goalsCards');
+            showToast('Seleccionen al menos un objetivo');
+            return false;
+          }
+          return true;
+        case 7:
+          if (!formData.nombre_contacto.trim()) {
+            shakeElement('contactName');
+            showToast('Por favor ingrese su nombre');
+            return false;
+          }
+          if (!formData.telefono.trim()) {
+            shakeElement('contactPhone');
+            showToast('Por favor ingrese su teléfono');
+            return false;
+          }
+          return true;
+        default:
+          return true;
+      }
+    }
+
+    function shakeElement(id) {
+      const el = document.getElementById(id);
+      el.classList.add('shake');
+      setTimeout(() => el.classList.remove('shake'), 500);
+    }
+
+    // ==========================================
+    // CARD INTERACTIONS
+    // ==========================================
+    function toggleCard(card) {
+      const field = card.dataset.field;
+      const value = card.dataset.value;
+
+      card.classList.toggle('selected');
+
+      if (!Array.isArray(formData[field])) formData[field] = [];
+
+      const idx = formData[field].indexOf(value);
+      if (idx > -1) {
+        formData[field].splice(idx, 1);
+      } else {
+        formData[field].push(value);
+      }
+      saveData();
+    }
+
+    function selectSingle(card, containerId) {
+      const container = document.getElementById(containerId);
+      const field = card.dataset.field;
+      const value = card.dataset.value;
+
+      container.querySelectorAll('.select-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      formData[field] = value;
+      saveData();
+    }
+
+    function selectToggle(el, groupId) {
+      const group = document.getElementById(groupId);
+      group.querySelectorAll('.toggle-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+
+      const value = el.dataset.value;
+      formData.chatbot_interes = value;
+      saveData();
+
+      // Show/hide chatbot details
+      const details = document.getElementById('chatbotDetails');
+      if (value === 'No por ahora') {
+        details.classList.add('hidden');
+      } else {
+        details.classList.remove('hidden');
+      }
+    }
+
+    function selectImportance(value) {
+      formData.chatbot_importancia_ia = value;
+      saveData();
+
+      document.querySelectorAll('#importanceScale .importance-dot').forEach(dot => {
+        const dotVal = parseInt(dot.dataset.value);
+        dot.classList.toggle('active', dotVal <= value);
+      });
+    }
+
+    // Style cards (multi-select)
+    function toggleStyleCard(card) {
+      const value = card.dataset.value;
+      card.classList.toggle('selected');
+
+      // Update check circle
+      const check = card.querySelector('.style-check');
+      if (card.classList.contains('selected')) {
+        check.style.background = '#C8A256';
+        check.style.borderColor = '#C8A256';
+      } else {
+        check.style.background = '';
+        check.style.borderColor = '';
+      }
+
+      if (!Array.isArray(formData.estilos)) formData.estilos = [];
+      const idx = formData.estilos.indexOf(value);
+      if (idx > -1) {
+        formData.estilos.splice(idx, 1);
+        // Remove palette for this style
+        delete formData.paletas[value];
+      } else {
+        formData.estilos.push(value);
+      }
+      saveData();
+    }
+
+    function selectPalette(el) {
+      const style = el.dataset.style;
+      const palette = el.dataset.palette;
+
+      // Also select the parent style card if not selected
+      const styleCard = el.closest('.style-card');
+      if (!styleCard.classList.contains('selected')) {
+        toggleStyleCard(styleCard);
+      }
+
+      // Deselect siblings
+      el.closest('.style-card').querySelectorAll('.palette-group .palette-dot').forEach(d => d.classList.remove('selected-palette'));
+
+      // Select all dots in this group
+      el.querySelectorAll('.palette-dot').forEach(d => d.classList.add('selected-palette'));
+
+      if (!formData.paletas) formData.paletas = {};
+      formData.paletas[style] = palette;
+      saveData();
+    }
+
+    // ==========================================
+    // SUMMARY GENERATION
+    // ==========================================
+    function generateSummary() {
+      const container = document.getElementById('summaryContent');
+      let html = '';
+
+      const sections = [
+        { title: 'Redes Sociales Deseadas', data: formData.redes },
+        { title: 'Cómo Quieren Ser Encontrados', data: formData.descubrimiento },
+        { title: 'Objetivos', data: formData.objetivos },
+        { title: 'Funcionalidades', data: formData.funcionalidades },
+        { title: 'Asistente Virtual (Chatbot)', data: formData.chatbot_interes ? [formData.chatbot_interes] : [] },
+        { title: 'Funciones del Chatbot', data: formData.chatbot_funciones },
+        { title: 'Importancia de IA en Chatbot', data: formData.chatbot_importancia_ia ? [`${formData.chatbot_importancia_ia} de 5`] : [] },
+        { title: 'Secciones del Sitio', data: formData.secciones },
+        { title: 'Secciones Imprescindibles', data: formData.secciones_imprescindibles ? [formData.secciones_imprescindibles] : [] },
+        { title: 'Estilos Visuales', data: formData.estilos },
+      ];
+
+      sections.forEach(section => {
+        if (section.data && section.data.length > 0) {
+          html += `<div class="summary-block">`;
+          html += `<h4>${section.title}</h4>`;
+          if (Array.isArray(section.data)) {
+            html += '<ul class="list-disc list-inside">';
+            section.data.forEach(item => {
+              html += `<li>${item}`;
+              // Add palette info for styles
+              if (section.title === 'Estilos Visuales' && formData.paletas[item]) {
+                html += ` <span class="text-gold-600">(${formData.paletas[item]})</span>`;
+              }
+              html += `</li>`;
+            });
+            html += '</ul>';
+          } else {
+            html += `<p>${section.data}</p>`;
+          }
+          html += `</div>`;
+        }
+      });
+
+      // Contact info
+      if (formData.tiempo || formData.nombre_contacto || formData.telefono || formData.email) {
+        html += `<div class="summary-block">`;
+        html += `<h4>Información de Contacto</h4>`;
+        if (formData.tiempo) html += `<p><strong>Tiempo deseado:</strong> ${formData.tiempo}</p>`;
+        if (formData.nombre_contacto) html += `<p><strong>Nombre:</strong> ${formData.nombre_contacto}</p>`;
+        if (formData.telefono) html += `<p><strong>Teléfono:</strong> ${formData.telefono}</p>`;
+        if (formData.email) html += `<p><strong>Email:</strong> ${formData.email}</p>`;
+        html += `</div>`;
+      }
+
+      if (formData.comentarios) {
+        html += `<div class="summary-block">`;
+        html += `<h4>Comentarios Adicionales</h4>`;
+        html += `<p>${formData.comentarios}</p>`;
+        html += `</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // ==========================================
+    // MARKDOWN GENERATION
+    // ==========================================
+    function generateMarkdown() {
+      let md = `# Cuestionario Axia Odontología\n`;
+      md += `*Fecha: ${new Date().toLocaleDateString('es-CO')}*\n\n`;
+
+      if (formData.redes.length) {
+        md += `## Redes Sociales Deseadas\n`;
+        formData.redes.forEach(r => md += `- ${r}\n`);
+        md += '\n';
+      }
+
+      if (formData.descubrimiento.length) {
+        md += `## Cómo Quieren Ser Encontrados\n`;
+        formData.descubrimiento.forEach(d => md += `- ${d}\n`);
+        md += '\n';
+      }
+
+      if (formData.objetivos.length) {
+        md += `## Objetivos\n`;
+        formData.objetivos.forEach(o => md += `- ${o}\n`);
+        md += '\n';
+      }
+
+      if (formData.funcionalidades.length) {
+        md += `## Funcionalidades Deseadas\n`;
+        formData.funcionalidades.forEach(f => md += `- ${f}\n`);
+        md += '\n';
+      }
+
+      if (formData.chatbot_interes) {
+        md += `## Asistente Virtual (Chatbot)\n`;
+        md += `- Interés: ${formData.chatbot_interes}\n`;
+        if (formData.chatbot_funciones.length) {
+          md += `- Funciones deseadas:\n`;
+          formData.chatbot_funciones.forEach(f => md += `  - ${f}\n`);
+        }
+        if (formData.chatbot_importancia_ia) {
+          md += `- Importancia de IA: ${formData.chatbot_importancia_ia}/5\n`;
+        }
+        md += '\n';
+      }
+
+      if (formData.secciones.length) {
+        md += `## Secciones del Sitio Web\n`;
+        formData.secciones.forEach(s => md += `- ${s}\n`);
+        if (formData.secciones_imprescindibles) {
+          md += `\n**Imprescindibles:** ${formData.secciones_imprescindibles}\n`;
+        }
+        md += '\n';
+      }
+
+      if (formData.estilos.length) {
+        md += `## Estilos Visuales Preferidos\n`;
+        formData.estilos.forEach(e => {
+          md += `- ${e}`;
+          if (formData.paletas[e]) md += ` (Paleta: ${formData.paletas[e]})`;
+          md += '\n';
+        });
+        md += '\n';
+      }
+
+      md += `## Información de Contacto\n`;
+      if (formData.tiempo) md += `- **Tiempo deseado:** ${formData.tiempo}\n`;
+      if (formData.nombre_contacto) md += `- **Nombre:** ${formData.nombre_contacto}\n`;
+      if (formData.telefono) md += `- **Teléfono:** ${formData.telefono}\n`;
+      if (formData.email) md += `- **Email:** ${formData.email}\n`;
+      md += '\n';
+
+      if (formData.comentarios) {
+        md += `## Comentarios Adicionales\n`;
+        md += `${formData.comentarios}\n`;
+      }
+
+      return md;
+    }
+
+    // ==========================================
+    // ACTIONS
+    // ==========================================
+    function copyToClipboard() {
+      const md = generateMarkdown();
+      navigator.clipboard.writeText(md).then(() => {
+        showToast('Respuestas copiadas al portapapeles');
+      }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = md;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Respuestas copiadas al portapapeles');
+      });
+    }
+
+    function sendWhatsApp() {
+      const md = generateMarkdown();
+      const encoded = encodeURIComponent(md);
+      window.open(`https://wa.me/573209485304?text=${encoded}`, '_blank');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ==========================================
+    // RESTORE SAVED STATE
+    // ==========================================
+    function restoreState() {
+      // Restore multi-select cards
+      document.querySelectorAll('.select-card[data-field]').forEach(card => {
+        const field = card.dataset.field;
+        const value = card.dataset.value;
+        if (Array.isArray(formData[field]) && formData[field].includes(value)) {
+          card.classList.add('selected');
+        }
+      });
+
+      // Restore chatbot interest
+      if (formData.chatbot_interes) {
+        document.querySelectorAll('#chatbotInterest .toggle-option').forEach(opt => {
+          if (opt.dataset.value === formData.chatbot_interes) {
+            opt.classList.add('selected');
+            if (formData.chatbot_interes !== 'No por ahora') {
+              document.getElementById('chatbotDetails').classList.remove('hidden');
+            }
+          }
+        });
+      }
+
+      // Restore importance
+      if (formData.chatbot_importancia_ia) {
+        selectImportance(formData.chatbot_importancia_ia);
+      }
+
+      // Restore style cards
+      document.querySelectorAll('.style-card').forEach(card => {
+        const value = card.dataset.value;
+        if (formData.estilos && formData.estilos.includes(value)) {
+          card.classList.add('selected');
+          const check = card.querySelector('.style-check');
+          check.style.background = '#C8A256';
+          check.style.borderColor = '#C8A256';
+
+          // Restore palette
+          if (formData.paletas && formData.paletas[value]) {
+            card.querySelectorAll('.palette-group').forEach(pg => {
+              if (pg.dataset.palette === formData.paletas[value]) {
+                pg.querySelectorAll('.palette-dot').forEach(d => d.classList.add('selected-palette'));
+              }
+            });
+          }
+        }
+      });
+
+      // Restore timeline
+      document.querySelectorAll('#timelineCards .select-card').forEach(card => {
+        if (card.dataset.value === formData.tiempo) {
+          card.classList.add('selected');
+        }
+      });
+
+      // Restore text fields
+      if (formData.secciones_imprescindibles) document.getElementById('seccionesImprescindibles').value = formData.secciones_imprescindibles;
+      if (formData.nombre_contacto) document.getElementById('contactName').value = formData.nombre_contacto;
+      if (formData.telefono) document.getElementById('contactPhone').value = formData.telefono;
+      if (formData.email) document.getElementById('contactEmail').value = formData.email;
+      if (formData.comentarios) document.getElementById('comments').value = formData.comentarios;
+    }
+
+    // ==========================================
+    // INIT
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      restoreState();
+      updateUI();
+    });
+  </script>
+</body>
+</html>
