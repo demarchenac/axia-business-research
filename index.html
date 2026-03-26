@@ -1381,8 +1381,10 @@
       const idx = formData.estilos.indexOf(value);
       if (idx > -1) {
         formData.estilos.splice(idx, 1);
-        // Remove palette for this style
+        // Remove palettes for this style
         delete formData.paletas[value];
+        // Deselect palette dots visually
+        card.querySelectorAll('.palette-dot').forEach(d => d.classList.remove('selected-palette'));
       } else {
         formData.estilos.push(value);
       }
@@ -1399,15 +1401,29 @@
         toggleStyleCard(styleCard);
       }
 
-      // Deselect siblings
-      el.closest('.style-card').querySelectorAll('.palette-group .palette-dot').forEach(d => d.classList.remove('selected-palette'));
-
-      // Select all dots in this group
-      el.querySelectorAll('.palette-dot').forEach(d => d.classList.add('selected-palette'));
-
       if (!formData.paletas) formData.paletas = {};
-      formData.paletas[style] = palette;
+      if (!Array.isArray(formData.paletas[style])) formData.paletas[style] = [];
+
+      const idx = formData.paletas[style].indexOf(palette);
+      if (idx > -1) {
+        // Deselect
+        formData.paletas[style].splice(idx, 1);
+        el.querySelectorAll('.palette-dot').forEach(d => d.classList.remove('selected-palette'));
+      } else {
+        // Select
+        formData.paletas[style].push(palette);
+        el.querySelectorAll('.palette-dot').forEach(d => d.classList.add('selected-palette'));
+      }
       saveData();
+    }
+
+    // Get all palette names for a given style from the DOM
+    function getAllPalettesForStyle(styleName) {
+      const palettes = [];
+      document.querySelectorAll(`.palette-group[data-style="${styleName}"]`).forEach(pg => {
+        palettes.push(pg.dataset.palette);
+      });
+      return palettes;
     }
 
     // ==========================================
@@ -1439,8 +1455,12 @@
             section.data.forEach(item => {
               html += `<li>${item}`;
               // Add palette info for styles
-              if (section.title === 'Estilos Visuales' && formData.paletas[item]) {
-                html += ` <span class="text-gold-600">(${formData.paletas[item]})</span>`;
+              if (section.title === 'Estilos Visuales') {
+                const selected = formData.paletas[item];
+                const palettes = (Array.isArray(selected) && selected.length > 0) ? selected : getAllPalettesForStyle(item);
+                html += `<ul class="ml-4 list-disc list-inside text-gold-600">`;
+                palettes.forEach(p => html += `<li>${p}</li>`);
+                html += `</ul>`;
               }
               html += `</li>`;
             });
@@ -1529,9 +1549,10 @@
       if (formData.estilos.length) {
         md += `## Estilos Visuales Preferidos\n`;
         formData.estilos.forEach(e => {
-          md += `- ${e}`;
-          if (formData.paletas[e]) md += ` (Paleta: ${formData.paletas[e]})`;
-          md += '\n';
+          md += `- ${e}\n`;
+          const selected = formData.paletas[e];
+          const palettes = (Array.isArray(selected) && selected.length > 0) ? selected : getAllPalettesForStyle(e);
+          palettes.forEach(p => md += `  - ${p}\n`);
         });
         md += '\n';
       }
@@ -1622,10 +1643,10 @@
           check.style.background = '#C8A256';
           check.style.borderColor = '#C8A256';
 
-          // Restore palette
-          if (formData.paletas && formData.paletas[value]) {
+          // Restore palettes (array)
+          if (formData.paletas && Array.isArray(formData.paletas[value])) {
             card.querySelectorAll('.palette-group').forEach(pg => {
-              if (pg.dataset.palette === formData.paletas[value]) {
+              if (formData.paletas[value].includes(pg.dataset.palette)) {
                 pg.querySelectorAll('.palette-dot').forEach(d => d.classList.add('selected-palette'));
               }
             });
