@@ -1320,16 +1320,19 @@
 
     <!-- Navigation buttons (shown on steps 1-7) -->
     <div id="navButtons" class="hidden fixed bottom-0 left-0 right-0 bg-dark-900/90 backdrop-blur-lg border-t border-gold-500/15 z-40">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
-        <button id="prevBtn" onclick="prevStep()" class="btn-secondary">
-          <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2 align-middle"></i>
-          Anterior
-        </button>
-        <p class="text-[10px] sm:text-xs text-gray-400 font-body text-center leading-tight">Cuestionario realizado por<br class="sm:hidden"> <span class="text-gold-500 font-medium">Cristhian De Marchena</span></p>
-        <button id="nextBtn" onclick="nextStep()" class="btn-primary">
-          Siguiente
-          <i data-lucide="arrow-right" class="w-4 h-4 inline ml-2 align-middle"></i>
-        </button>
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+        <div class="flex justify-between items-center">
+          <button id="prevBtn" onclick="prevStep()" class="btn-secondary">
+            <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2 align-middle"></i>
+            Anterior
+          </button>
+          <p class="hidden sm:block text-xs text-gray-400 font-body text-center leading-tight">Cuestionario realizado por <span class="text-gold-500 font-medium">Cristhian De Marchena</span></p>
+          <button id="nextBtn" onclick="nextStep()" class="btn-primary">
+            Siguiente
+            <i data-lucide="arrow-right" class="w-4 h-4 inline ml-2 align-middle"></i>
+          </button>
+        </div>
+        <p class="sm:hidden text-[10px] text-gray-400 font-body text-center mt-2 pt-2 border-t border-gold-500/10">Cuestionario realizado por <span class="text-gold-500 font-medium">Cristhian De Marchena</span></p>
       </div>
     </div>
 
