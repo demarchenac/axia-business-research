@@ -1476,6 +1476,30 @@
             showToast('Seleccionen al menos una red social');
             return false;
           }
+          if (formData.descubrimiento.length === 0) {
+            shakeElement('discoveryCards');
+            showToast('Seleccionen al menos una forma de descubrimiento');
+            return false;
+          }
+          return true;
+        case 2:
+          if (formData.valores.length === 0) {
+            shakeElement('valoresCards');
+            showToast('Seleccionen al menos un valor');
+            return false;
+          }
+          if (formData.percepcion.length === 0) {
+            shakeElement('percepcionCards');
+            showToast('Seleccionen al menos una percepción deseada');
+            return false;
+          }
+          return true;
+        case 3:
+          if (!formData.atencion_internacional) {
+            shakeElement('intlInterest');
+            showToast('Seleccionen si les interesa la atención internacional');
+            return false;
+          }
           return true;
         case 4:
           if (formData.objetivos.length === 0) {
@@ -1484,7 +1508,40 @@
             return false;
           }
           return true;
+        case 5:
+          if (formData.funcionalidades.length === 0) {
+            shakeElement('featuresCards');
+            showToast('Seleccionen al menos una funcionalidad');
+            return false;
+          }
+          return true;
+        case 6:
+          if (!formData.chatbot_interes) {
+            shakeElement('chatbotInterest');
+            showToast('Seleccionen si les interesa el asistente virtual');
+            return false;
+          }
+          return true;
+        case 7:
+          if (formData.secciones.length === 0) {
+            shakeElement('sectionsCards');
+            showToast('Seleccionen al menos una sección');
+            return false;
+          }
+          return true;
+        case 8:
+          if (formData.estilos.length === 0) {
+            shakeElement('styleCards');
+            showToast('Seleccionen al menos un estilo visual');
+            return false;
+          }
+          return true;
         case 9:
+          if (!formData.tiempo) {
+            shakeElement('timelineCards');
+            showToast('Seleccionen un tiempo deseado');
+            return false;
+          }
           if (!formData.nombre_contacto.trim()) {
             shakeElement('contactName');
             showToast('Por favor ingrese su nombre');
