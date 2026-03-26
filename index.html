@@ -17,6 +17,7 @@
             teal: { 900: '#0D4F4F', 800: '#0F6363', 700: '#147878', 600: '#1A8F8F' },
             gold: { 400: '#D4AF37', 500: '#C8A256', 600: '#B8924A', 700: '#A07D3A' },
             cream: { 50: '#FFFDF8', 100: '#FAF7F2', 200: '#F3EDE3' },
+            dark: { 900: '#0C0F14', 800: '#121721', 700: '#1A1F2A', 600: '#2A2F3A' },
           },
           fontFamily: {
             display: ['Playfair Display', 'serif'],
@@ -28,7 +29,7 @@
   </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'DM Sans', sans-serif; background: #FAF7F2; overflow-x: hidden; }
+    body { font-family: 'DM Sans', sans-serif; background: #0C0F14; color: #E8E2D6; overflow-x: hidden; }
 
     /* Animated gold tooth background */
     .tooth-bg {
@@ -39,7 +40,7 @@
       content: '🦷';
       position: absolute;
       font-size: 300px;
-      opacity: 0.03;
+      opacity: 0.025;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       animation: floatTooth 20s ease-in-out infinite;
@@ -104,9 +105,9 @@
 
     /* Selection card */
     .select-card {
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.04);
       backdrop-filter: blur(12px);
-      border: 2px solid transparent;
+      border: 2px solid rgba(255,255,255,0.06);
       border-radius: 16px;
       padding: 20px;
       cursor: pointer;
@@ -124,13 +125,13 @@
     }
     .select-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(13,79,79,0.1);
-      border-color: rgba(200,162,86,0.3);
+      box-shadow: 0 12px 40px rgba(200,162,86,0.08);
+      border-color: rgba(200,162,86,0.35);
     }
     .select-card.selected {
       border-color: #C8A256;
-      background: rgba(200,162,86,0.08);
-      box-shadow: 0 8px 32px rgba(200,162,86,0.15);
+      background: rgba(200,162,86,0.1);
+      box-shadow: 0 8px 32px rgba(200,162,86,0.12);
     }
     .select-card.selected::before {
       transform: scaleX(1);
@@ -149,9 +150,9 @@
 
     /* Style preview cards */
     .style-card {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.04);
       backdrop-filter: blur(12px);
-      border: 2px solid transparent;
+      border: 2px solid rgba(255,255,255,0.06);
       border-radius: 20px;
       padding: 24px;
       cursor: pointer;
@@ -160,7 +161,7 @@
     }
     .style-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(13,79,79,0.12);
+      box-shadow: 0 16px 48px rgba(200,162,86,0.1);
     }
     .style-card.selected {
       border-color: #C8A256;
@@ -169,8 +170,8 @@
 
     .palette-dot {
       width: 28px; height: 28px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.8);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 2px solid rgba(255,255,255,0.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -184,11 +185,11 @@
     /* Importance scale */
     .importance-dot {
       width: 40px; height: 40px; border-radius: 50%;
-      border: 2px solid #ddd;
+      border: 2px solid #2A2F3A;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 600; font-size: 14px; color: #999;
+      font-weight: 600; font-size: 14px; color: #6B7280;
     }
     .importance-dot:hover { border-color: #C8A256; color: #C8A256; }
     .importance-dot.active {
@@ -200,11 +201,12 @@
     .form-input {
       width: 100%;
       padding: 14px 18px;
-      border: 2px solid #E8E2D6;
+      border: 2px solid #2A2F3A;
       border-radius: 12px;
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
-      background: rgba(255,255,255,0.8);
+      color: #E8E2D6;
+      background: rgba(255,255,255,0.05);
       backdrop-filter: blur(8px);
       transition: all 0.3s ease;
       outline: none;
@@ -213,7 +215,7 @@
       border-color: #C8A256;
       box-shadow: 0 0 0 4px rgba(200,162,86,0.1);
     }
-    .form-input::placeholder { color: #B8AFA0; }
+    .form-input::placeholder { color: #555D6E; }
 
     textarea.form-input { resize: vertical; min-height: 100px; }
 
@@ -229,8 +231,8 @@
 
     /* CTA button */
     .btn-primary {
-      background: linear-gradient(135deg, #0D4F4F, #147878);
-      color: white;
+      background: linear-gradient(135deg, #C8A256, #D4AF37);
+      color: #0C0F14;
       padding: 16px 40px;
       border-radius: 14px;
       font-family: 'DM Sans', sans-serif;
@@ -251,24 +253,24 @@
     .btn-primary:hover::before { left: 100%; }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(13,79,79,0.3);
+      box-shadow: 0 8px 30px rgba(200,162,86,0.35);
     }
     .btn-primary:active { transform: translateY(0); }
 
     .btn-secondary {
       background: transparent;
-      color: #0D4F4F;
+      color: #C8A256;
       padding: 16px 32px;
       border-radius: 14px;
       font-family: 'DM Sans', sans-serif;
       font-weight: 600;
       font-size: 16px;
-      border: 2px solid #0D4F4F;
+      border: 2px solid #C8A256;
       cursor: pointer;
       transition: all 0.3s ease;
     }
     .btn-secondary:hover {
-      background: rgba(13,79,79,0.05);
+      background: rgba(200,162,86,0.08);
     }
 
     .btn-gold {
@@ -312,10 +314,10 @@
     .toast {
       position: fixed; bottom: 30px; left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: #0D4F4F; color: white;
+      background: #C8A256; color: #0C0F14;
       padding: 16px 30px; border-radius: 14px;
-      font-family: 'DM Sans', sans-serif; font-weight: 500;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      font-family: 'DM Sans', sans-serif; font-weight: 600;
+      box-shadow: 0 12px 40px rgba(200,162,86,0.3);
       z-index: 1000;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -323,7 +325,7 @@
 
     /* Summary section */
     .summary-block {
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.04);
       backdrop-filter: blur(12px);
       border-radius: 16px;
       padding: 20px 24px;
@@ -333,11 +335,11 @@
     .summary-block h4 {
       font-family: 'Playfair Display', serif;
       font-size: 16px;
-      color: #0D4F4F;
+      color: #D4AF37;
       margin-bottom: 8px;
     }
     .summary-block p, .summary-block li {
-      color: #555;
+      color: #A0A8B8;
       font-size: 14px;
       line-height: 1.6;
     }
@@ -349,11 +351,12 @@
     .toggle-option {
       padding: 12px 24px;
       border-radius: 12px;
-      border: 2px solid #E8E2D6;
+      border: 2px solid #2A2F3A;
       cursor: pointer;
       font-weight: 500;
       transition: all 0.3s ease;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.04);
+      color: #A0A8B8;
     }
     .toggle-option:hover {
       border-color: rgba(200,162,86,0.4);
@@ -361,7 +364,7 @@
     .toggle-option.selected {
       border-color: #C8A256;
       background: rgba(200,162,86,0.1);
-      color: #0D4F4F;
+      color: #E8E2D6;
     }
 
     /* Scrollbar styling */
@@ -374,15 +377,15 @@
   <div class="tooth-bg"></div>
 
   <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-cream-100/80 border-b border-gold-500/10">
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-dark-900/85 border-b border-gold-500/15">
     <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-500 to-gold-400 flex items-center justify-center text-white text-lg">
           🦷
         </div>
         <div>
-          <h1 class="font-display font-bold text-teal-900 text-lg leading-tight">Axia Odontología</h1>
-          <p class="text-xs text-gold-600 font-medium tracking-wider uppercase">Cuestionario Digital</p>
+          <h1 class="font-display font-bold text-[#E8E2D6] text-lg leading-tight">Axia Odontología</h1>
+          <p class="text-xs text-[#D4AF37] font-medium tracking-wider uppercase">Cuestionario Digital</p>
         </div>
       </div>
       <div class="text-right hidden sm:block">
@@ -390,7 +393,7 @@
       </div>
     </div>
     <!-- Progress bar -->
-    <div class="h-1 bg-cream-200">
+    <div class="h-1 bg-dark-700">
       <div id="progressBar" class="h-full progress-fill rounded-r-full transition-all duration-700 ease-out" style="width: 0%"></div>
     </div>
   </header>
@@ -404,14 +407,14 @@
         <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-gold-500 to-gold-400 mb-8 shadow-lg shadow-gold-500/20">
           <span class="text-5xl">🦷</span>
         </div>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-teal-900 mb-4 leading-tight">
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-[#E8E2D6] mb-4 leading-tight">
           Bienvenidos a<br><span class="text-gold-500">Axia Odontología</span>
         </h2>
         <p class="text-lg text-gray-500 max-w-xl mx-auto mb-4 font-light leading-relaxed">
           Queremos entender qué necesitan para llevar su clínica al mundo digital.
         </p>
         <p class="text-base text-gray-400 max-w-md mx-auto mb-10">
-          Este cuestionario les ayudará a describir sus ideas y necesidades de forma sencilla. Toma aproximadamente <strong class="text-teal-800">5 minutos</strong>.
+          Este cuestionario les ayudará a describir sus ideas y necesidades de forma sencilla. Toma aproximadamente <strong class="text-gold-500">5 minutos</strong>.
         </p>
         <button onclick="goToStep(1)" class="btn-primary text-lg px-12 py-5">
           Comenzar
@@ -423,80 +426,80 @@
     <!-- STEP 1: Presencia Digital Deseada -->
     <div id="step1" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 1 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Presencia Digital Deseada</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 1 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Presencia Digital Deseada</h2>
         <p class="text-gray-400">Cuéntennos cómo les gustaría estar presentes en el mundo digital.</p>
       </div>
 
       <div class="mb-10">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿En qué redes sociales les gustaría estar?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿En qué redes sociales les gustaría estar?</h3>
         <p class="text-sm text-gray-400 mb-4">Seleccionen todas las que les interesen</p>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 card-stagger" id="socialCards">
           <div class="select-card text-center" data-field="redes" data-value="Instagram" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#147878"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>
-            <p class="font-medium text-sm text-teal-900">Instagram</p>
+            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#C8A256"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>
+            <p class="font-medium text-sm text-[#E8E2D6]">Instagram</p>
           </div>
           <div class="select-card text-center" data-field="redes" data-value="Facebook" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#147878"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
-            <p class="font-medium text-sm text-teal-900">Facebook</p>
+            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#C8A256"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+            <p class="font-medium text-sm text-[#E8E2D6]">Facebook</p>
           </div>
           <div class="select-card text-center" data-field="redes" data-value="TikTok" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#147878"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-            <p class="font-medium text-sm text-teal-900">TikTok</p>
+            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#C8A256"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            <p class="font-medium text-sm text-[#E8E2D6]">TikTok</p>
           </div>
           <div class="select-card text-center" data-field="redes" data-value="YouTube" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#147878"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            <p class="font-medium text-sm text-teal-900">YouTube</p>
+            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#C8A256"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <p class="font-medium text-sm text-[#E8E2D6]">YouTube</p>
           </div>
           <div class="select-card text-center" data-field="redes" data-value="Google Business" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#147878"><path d="M3.273 1.636c-.736 0-1.363.492-1.568 1.16L0 9.272c0 1.664 1.336 3 3 3a3 3 0 003-3c0 1.664 1.336 3 3 3a3 3 0 003-3c0 1.65 1.35 3 3 3 1.664 0 3-1.336 3-3 0 1.664 1.336 3 3 3s3-1.336 3-3l-1.705-6.476a1.646 1.646 0 00-1.568-1.16zm8.729 9.326c-.604 1.063-1.703 1.81-3.002 1.81-1.304 0-2.398-.747-3-1.806-.604 1.06-1.702 1.806-3 1.806-.484 0-.944-.1-1.363-.277v8.232c0 .9.736 1.637 1.636 1.637h17.454c.9 0 1.636-.737 1.636-1.637v-8.232a3.48 3.48 0 01-1.363.277c-1.304 0-2.398-.746-3-1.804-.602 1.058-1.696 1.804-3 1.804-1.299 0-2.394-.75-2.998-1.81zm5.725 3.765c.808 0 1.488.298 2.007.782l-.859.859a1.623 1.623 0 00-1.148-.447c-.98 0-1.772.827-1.772 1.806 0 .98.792 1.807 1.772 1.807.882 0 1.485-.501 1.615-1.191h-1.615v-1.16h2.826c.035.196.054.4.054.613 0 1.714-1.147 2.931-2.88 2.931a3 3 0 010-6z"/></svg>
-            <p class="font-medium text-sm text-teal-900">Google Business</p>
+            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#C8A256"><path d="M3.273 1.636c-.736 0-1.363.492-1.568 1.16L0 9.272c0 1.664 1.336 3 3 3a3 3 0 003-3c0 1.664 1.336 3 3 3a3 3 0 003-3c0 1.65 1.35 3 3 3 1.664 0 3-1.336 3-3 0 1.664 1.336 3 3 3s3-1.336 3-3l-1.705-6.476a1.646 1.646 0 00-1.568-1.16zm8.729 9.326c-.604 1.063-1.703 1.81-3.002 1.81-1.304 0-2.398-.747-3-1.806-.604 1.06-1.702 1.806-3 1.806-.484 0-.944-.1-1.363-.277v8.232c0 .9.736 1.637 1.636 1.637h17.454c.9 0 1.636-.737 1.636-1.637v-8.232a3.48 3.48 0 01-1.363.277c-1.304 0-2.398-.746-3-1.804-.602 1.058-1.696 1.804-3 1.804-1.299 0-2.394-.75-2.998-1.81zm5.725 3.765c.808 0 1.488.298 2.007.782l-.859.859a1.623 1.623 0 00-1.148-.447c-.98 0-1.772.827-1.772 1.806 0 .98.792 1.807 1.772 1.807.882 0 1.485-.501 1.615-1.191h-1.615v-1.16h2.826c.035.196.054.4.054.613 0 1.714-1.147 2.931-2.88 2.931a3 3 0 010-6z"/></svg>
+            <p class="font-medium text-sm text-[#E8E2D6]">Google Business</p>
           </div>
           <div class="select-card text-center" data-field="redes" data-value="LinkedIn" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#147878"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            <p class="font-medium text-sm text-teal-900">LinkedIn</p>
+            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#C8A256"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <p class="font-medium text-sm text-[#E8E2D6]">LinkedIn</p>
           </div>
           <div class="select-card text-center" data-field="redes" data-value="X / Twitter" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#147878"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg>
-            <p class="font-medium text-sm text-teal-900">X / Twitter</p>
+            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#C8A256"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg>
+            <p class="font-medium text-sm text-[#E8E2D6]">X / Twitter</p>
           </div>
         </div>
       </div>
 
       <div class="mb-10">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Cómo les gustaría que los pacientes los encuentren?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Cómo les gustaría que los pacientes los encuentren?</h3>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 card-stagger" id="discoveryCards">
           <div class="select-card text-center" data-field="descubrimiento" data-value="Recomendación boca a boca" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="users" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Recomendación</p>
+            <i data-lucide="users" class="w-8 h-8 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Recomendación</p>
           </div>
           <div class="select-card text-center" data-field="descubrimiento" data-value="Redes sociales" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="share-2" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Redes sociales</p>
+            <i data-lucide="share-2" class="w-8 h-8 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Redes sociales</p>
           </div>
           <div class="select-card text-center" data-field="descubrimiento" data-value="Búsquedas en Google" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#147878"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
-            <p class="font-medium text-sm text-teal-900">Google</p>
+            <svg class="w-8 h-8 mx-auto mb-2" viewBox="0 0 24 24" fill="#C8A256"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+            <p class="font-medium text-sm text-[#E8E2D6]">Google</p>
           </div>
           <div class="select-card text-center" data-field="descubrimiento" data-value="Publicidad pagada" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="megaphone" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Publicidad</p>
+            <i data-lucide="megaphone" class="w-8 h-8 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Publicidad</p>
           </div>
           <div class="select-card text-center" data-field="descubrimiento" data-value="Otro" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="plus-circle" class="w-8 h-8 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Otro</p>
+            <i data-lucide="plus-circle" class="w-8 h-8 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Otro</p>
           </div>
         </div>
       </div>
@@ -505,101 +508,101 @@
     <!-- STEP 2: La Esencia de Axia -->
     <div id="step2" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 2 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">La Esencia de Axia</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 2 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">La Esencia de Axia</h2>
         <p class="text-gray-400">Conocer su identidad nos ayuda a crear textos y diseños que realmente los representen.</p>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-3">¿Qué representa Axia Odontología para ustedes?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-3">¿Qué representa Axia Odontología para ustedes?</h3>
         <p class="text-sm text-gray-400 mb-3">Su filosofía, lo que los hace diferentes, por qué eligieron este camino.</p>
         <textarea class="form-input" id="esencia" placeholder="Cuéntennos con sus propias palabras..." oninput="saveField('esencia', this.value)"></textarea>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-3">¿Cuál es la misión de la clínica?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-3">¿Cuál es la misión de la clínica?</h3>
         <p class="text-sm text-gray-400 mb-3">El propósito principal que los guía como equipo.</p>
         <textarea class="form-input" id="mision" placeholder="Ej: Brindar sonrisas saludables con calidez y tecnología de punta..." oninput="saveField('mision', this.value)"></textarea>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Cuáles son los valores de la clínica?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Cuáles son los valores de la clínica?</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 card-stagger" id="valoresCards">
           <div class="select-card text-center" data-field="valores" data-value="Confianza" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="shield" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Confianza</p>
+            <i data-lucide="shield" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Confianza</p>
           </div>
           <div class="select-card text-center" data-field="valores" data-value="Calidez humana" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="heart" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Calidez humana</p>
+            <i data-lucide="heart" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Calidez humana</p>
           </div>
           <div class="select-card text-center" data-field="valores" data-value="Innovación y tecnología" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="cpu" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Innovación</p>
+            <i data-lucide="cpu" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Innovación</p>
           </div>
           <div class="select-card text-center" data-field="valores" data-value="Excelencia profesional" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="award" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Excelencia</p>
+            <i data-lucide="award" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Excelencia</p>
           </div>
           <div class="select-card text-center" data-field="valores" data-value="Accesibilidad" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="hand-helping" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Accesibilidad</p>
+            <i data-lucide="hand-helping" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Accesibilidad</p>
           </div>
           <div class="select-card text-center" data-field="valores" data-value="Compromiso con el paciente" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="handshake" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Compromiso</p>
+            <i data-lucide="handshake" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Compromiso</p>
           </div>
           <div class="select-card text-center" data-field="valores" data-value="Transparencia" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="eye" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Transparencia</p>
+            <i data-lucide="eye" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Transparencia</p>
           </div>
           <div class="select-card text-center" data-field="valores" data-value="Educación y prevención" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="graduation-cap" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Educación</p>
+            <i data-lucide="graduation-cap" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Educación</p>
           </div>
         </div>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Cómo les gustaría que los pacientes los perciban?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Cómo les gustaría que los pacientes los perciban?</h3>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 card-stagger" id="percepcionCards">
           <div class="select-card text-center" data-field="percepcion" data-value="Profesionales y confiables" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="briefcase" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Profesionales y confiables</p>
+            <i data-lucide="briefcase" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Profesionales y confiables</p>
           </div>
           <div class="select-card text-center" data-field="percepcion" data-value="Cercanos y amigables" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="smile" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Cercanos y amigables</p>
+            <i data-lucide="smile" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Cercanos y amigables</p>
           </div>
           <div class="select-card text-center" data-field="percepcion" data-value="Modernos e innovadores" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="rocket" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Modernos e innovadores</p>
+            <i data-lucide="rocket" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Modernos e innovadores</p>
           </div>
           <div class="select-card text-center" data-field="percepcion" data-value="Accesibles y económicos" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="wallet" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Accesibles y económicos</p>
+            <i data-lucide="wallet" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Accesibles y económicos</p>
           </div>
           <div class="select-card text-center" data-field="percepcion" data-value="Exclusivos y premium" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="gem" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Exclusivos y premium</p>
+            <i data-lucide="gem" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Exclusivos y premium</p>
           </div>
           <div class="select-card text-center" data-field="percepcion" data-value="Expertos especializados" onclick="toggleCard(this)">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="microscope" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">Expertos especializados</p>
+            <i data-lucide="microscope" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Expertos especializados</p>
           </div>
         </div>
       </div>
@@ -608,13 +611,13 @@
     <!-- STEP 3: Alcance y Atención Internacional -->
     <div id="step3" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 3 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Alcance y Atención</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 3 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Alcance y Atención</h2>
         <p class="text-gray-400">Barranquilla es un destino creciente para turismo dental. ¿Les interesa ese mercado?</p>
       </div>
 
       <div class="mb-10">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Les interesa atender pacientes internacionales?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Les interesa atender pacientes internacionales?</h3>
         <div class="toggle-group" id="intlInterest">
           <div class="toggle-option" data-field="atencion_internacional" data-value="Sí, nos interesa" onclick="selectToggle(this, 'intlInterest'); toggleIntlDetails()">
             <i data-lucide="check-circle" class="w-5 h-5 inline mr-2 align-middle text-green-600"></i>
@@ -633,38 +636,38 @@
 
       <div id="intlDetails" class="hidden">
         <div class="mb-10">
-          <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Qué necesitarían para atender pacientes del exterior?</h3>
+          <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué necesitarían para atender pacientes del exterior?</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="intlFeaturesCards">
             <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Sitio web en inglés u otros idiomas" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="languages" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Sitio web en inglés u otros idiomas</p>
+              <i data-lucide="languages" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Sitio web en inglés u otros idiomas</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Precios en dólares (USD)" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="dollar-sign" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Precios en dólares (USD)</p>
+              <i data-lucide="dollar-sign" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Precios en dólares (USD)</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Asistencia con viajes y hospedaje" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="plane" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Asistencia con viajes y hospedaje</p>
+              <i data-lucide="plane" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Asistencia con viajes y hospedaje</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Coordinación de tratamientos para visitantes" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="clipboard-list" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Coordinación de tratamientos para visitantes</p>
+              <i data-lucide="clipboard-list" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Coordinación de tratamientos para visitantes</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Marketing dirigido a pacientes del exterior" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="globe" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Marketing dirigido al exterior</p>
+              <i data-lucide="globe" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Marketing dirigido al exterior</p>
             </div>
           </div>
         </div>
 
         <div class="mb-8">
-          <h3 class="font-display text-lg font-semibold text-teal-900 mb-3">¿De qué países o regiones esperan recibir pacientes?</h3>
+          <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-3">¿De qué países o regiones esperan recibir pacientes?</h3>
           <textarea class="form-input" id="intlPaises" placeholder="Ej: Estados Unidos, Panamá, el Caribe..." oninput="saveField('intl_paises', this.value)"></textarea>
         </div>
       </div>
@@ -673,79 +676,79 @@
     <!-- STEP 4: Objetivos -->
     <div id="step4" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 4 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">¿Qué quieren lograr?</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 4 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">¿Qué quieren lograr?</h2>
         <p class="text-gray-400">Seleccionen los objetivos más importantes para su clínica.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="goalsCards">
         <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Atraer nuevos pacientes" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
-            <i data-lucide="user-plus" class="w-6 h-6 text-teal-700"></i>
+          <div class="w-12 h-12 rounded-xl bg-[rgba(200,162,86,0.08)] flex items-center justify-center shrink-0">
+            <i data-lucide="user-plus" class="w-6 h-6 text-gold-500"></i>
           </div>
           <div>
-            <p class="font-semibold text-teal-900">Atraer nuevos pacientes</p>
+            <p class="font-semibold text-[#E8E2D6]">Atraer nuevos pacientes</p>
             <p class="text-sm text-gray-400 mt-1">Que más personas conozcan la clínica</p>
           </div>
         </div>
         <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Mostrar servicios y tratamientos" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
-            <i data-lucide="stethoscope" class="w-6 h-6 text-teal-700"></i>
+          <div class="w-12 h-12 rounded-xl bg-[rgba(200,162,86,0.08)] flex items-center justify-center shrink-0">
+            <i data-lucide="stethoscope" class="w-6 h-6 text-gold-500"></i>
           </div>
           <div>
-            <p class="font-semibold text-teal-900">Mostrar servicios y tratamientos</p>
+            <p class="font-semibold text-[#E8E2D6]">Mostrar servicios y tratamientos</p>
             <p class="text-sm text-gray-400 mt-1">Que los pacientes vean lo que ofrecen</p>
           </div>
         </div>
         <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Agendar citas en línea" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
-            <i data-lucide="calendar-check" class="w-6 h-6 text-teal-700"></i>
+          <div class="w-12 h-12 rounded-xl bg-[rgba(200,162,86,0.08)] flex items-center justify-center shrink-0">
+            <i data-lucide="calendar-check" class="w-6 h-6 text-gold-500"></i>
           </div>
           <div>
-            <p class="font-semibold text-teal-900">Agendar citas en línea</p>
+            <p class="font-semibold text-[#E8E2D6]">Agendar citas en línea</p>
             <p class="text-sm text-gray-400 mt-1">Que los pacientes reserven sin llamar</p>
           </div>
         </div>
         <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Presentar al equipo médico" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
-            <i data-lucide="users" class="w-6 h-6 text-teal-700"></i>
+          <div class="w-12 h-12 rounded-xl bg-[rgba(200,162,86,0.08)] flex items-center justify-center shrink-0">
+            <i data-lucide="users" class="w-6 h-6 text-gold-500"></i>
           </div>
           <div>
-            <p class="font-semibold text-teal-900">Presentar al equipo médico</p>
+            <p class="font-semibold text-[#E8E2D6]">Presentar al equipo médico</p>
             <p class="text-sm text-gray-400 mt-1">Que conozcan a los profesionales</p>
           </div>
         </div>
         <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Generar confianza y credibilidad" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
-            <i data-lucide="shield-check" class="w-6 h-6 text-teal-700"></i>
+          <div class="w-12 h-12 rounded-xl bg-[rgba(200,162,86,0.08)] flex items-center justify-center shrink-0">
+            <i data-lucide="shield-check" class="w-6 h-6 text-gold-500"></i>
           </div>
           <div>
-            <p class="font-semibold text-teal-900">Generar confianza y credibilidad</p>
+            <p class="font-semibold text-[#E8E2D6]">Generar confianza y credibilidad</p>
             <p class="text-sm text-gray-400 mt-1">Transmitir profesionalismo y seguridad</p>
           </div>
         </div>
         <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Compartir contenido educativo" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
-            <i data-lucide="book-open" class="w-6 h-6 text-teal-700"></i>
+          <div class="w-12 h-12 rounded-xl bg-[rgba(200,162,86,0.08)] flex items-center justify-center shrink-0">
+            <i data-lucide="book-open" class="w-6 h-6 text-gold-500"></i>
           </div>
           <div>
-            <p class="font-semibold text-teal-900">Compartir contenido educativo</p>
+            <p class="font-semibold text-[#E8E2D6]">Compartir contenido educativo</p>
             <p class="text-sm text-gray-400 mt-1">Artículos y tips de salud dental</p>
           </div>
         </div>
         <div class="select-card flex items-start gap-4" data-field="objetivos" data-value="Vender productos o tratamientos en línea" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <div class="w-12 h-12 rounded-xl bg-teal-900/5 flex items-center justify-center shrink-0">
-            <i data-lucide="shopping-bag" class="w-6 h-6 text-teal-700"></i>
+          <div class="w-12 h-12 rounded-xl bg-[rgba(200,162,86,0.08)] flex items-center justify-center shrink-0">
+            <i data-lucide="shopping-bag" class="w-6 h-6 text-gold-500"></i>
           </div>
           <div>
-            <p class="font-semibold text-teal-900">Vender productos o tratamientos</p>
+            <p class="font-semibold text-[#E8E2D6]">Vender productos o tratamientos</p>
             <p class="text-sm text-gray-400 mt-1">Ofrecer productos o paquetes en línea</p>
           </div>
         </div>
@@ -755,66 +758,66 @@
     <!-- STEP 5: Funcionalidades -->
     <div id="step5" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 5 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Funcionalidades Deseadas</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 5 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Funcionalidades Deseadas</h2>
         <p class="text-gray-400">¿Qué herramientas les gustaría tener en su sitio web?</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="featuresCards">
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Agenda de citas en línea" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="calendar" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Agenda de citas en línea</p>
+          <i data-lucide="calendar" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Agenda de citas en línea</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Catálogo de servicios" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="list" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Catálogo de servicios</p>
+          <i data-lucide="list" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Catálogo de servicios</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Perfiles del equipo" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="user-circle" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Perfiles del equipo</p>
+          <i data-lucide="user-circle" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Perfiles del equipo</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Testimonios de pacientes" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="message-circle" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Testimonios de pacientes</p>
+          <i data-lucide="message-circle" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Testimonios de pacientes</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Formulario de contacto" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="mail" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Formulario de contacto</p>
+          <i data-lucide="mail" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Formulario de contacto</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Blog / Artículos educativos" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="pen-line" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Blog / Artículos educativos</p>
+          <i data-lucide="pen-line" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Blog / Artículos educativos</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Chat en vivo" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="message-square" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Chat en vivo</p>
+          <i data-lucide="message-square" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Chat en vivo</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Galería de antes y después" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="images" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Galería de antes/después</p>
+          <i data-lucide="images" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Galería de antes/después</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Mapa de ubicación" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="map" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Mapa de ubicación</p>
+          <i data-lucide="map" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Mapa de ubicación</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Integración con WhatsApp" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="smartphone" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Integración con WhatsApp</p>
+          <i data-lucide="smartphone" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Integración con WhatsApp</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Tienda en línea" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="shopping-cart" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900">Tienda en línea</p>
+          <i data-lucide="shopping-cart" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Tienda en línea</p>
         </div>
       </div>
     </div>
@@ -822,13 +825,13 @@
     <!-- STEP 6: Chatbot y Automatización -->
     <div id="step6" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 6 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Asistente Virtual y Automatización</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 6 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Asistente Virtual y Automatización</h2>
         <p class="text-gray-400">Un chatbot en WhatsApp puede atender pacientes automáticamente, agendar citas y más.</p>
       </div>
 
       <div class="mb-10">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Les interesa tener un asistente virtual en WhatsApp?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Les interesa tener un asistente virtual en WhatsApp?</h3>
         <div class="toggle-group" id="chatbotInterest">
           <div class="toggle-option" data-field="chatbot_interes" data-value="Sí, nos interesa" onclick="selectToggle(this, 'chatbotInterest')">
             <i data-lucide="check-circle" class="w-5 h-5 inline mr-2 align-middle text-green-600"></i>
@@ -847,43 +850,43 @@
 
       <div id="chatbotDetails" class="hidden">
         <div class="mb-10">
-          <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Qué les gustaría que hiciera el asistente?</h3>
+          <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué les gustaría que hiciera el asistente?</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="chatbotFeaturesCards">
             <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Responder preguntas frecuentes" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="help-circle" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Responder preguntas frecuentes</p>
+              <i data-lucide="help-circle" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Responder preguntas frecuentes</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Agendar citas automáticamente" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="calendar-plus" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Agendar citas automáticamente</p>
+              <i data-lucide="calendar-plus" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Agendar citas automáticamente</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Enviar recordatorios de citas" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="bell" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Enviar recordatorios de citas</p>
+              <i data-lucide="bell" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Enviar recordatorios de citas</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Conectar con Google Calendar" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="link" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Conectar con Google Calendar</p>
+              <i data-lucide="link" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Conectar con Google Calendar</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Enviar info de servicios y precios" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="receipt" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Enviar info de servicios y precios</p>
+              <i data-lucide="receipt" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Enviar info de servicios y precios</p>
             </div>
             <div class="select-card flex items-center gap-4" data-field="chatbot_funciones" data-value="Atender fuera de horario" onclick="toggleCard(this)">
               <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-              <i data-lucide="moon" class="w-6 h-6 text-teal-700 shrink-0"></i>
-              <p class="font-medium text-teal-900 text-sm">Atender solicitudes fuera de horario</p>
+              <i data-lucide="moon" class="w-6 h-6 text-gold-500 shrink-0"></i>
+              <p class="font-medium text-[#E8E2D6] text-sm">Atender solicitudes fuera de horario</p>
             </div>
           </div>
         </div>
 
         <div class="mb-10">
-          <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Qué tan importante es que el chatbot use inteligencia artificial?</h3>
+          <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿Qué tan importante es que el chatbot use inteligencia artificial?</h3>
           <div class="flex items-center gap-3 flex-wrap">
             <span class="text-sm text-gray-400">Poco</span>
             <div class="flex gap-2" id="importanceScale">
@@ -902,71 +905,71 @@
     <!-- STEP 7: Secciones -->
     <div id="step7" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 7 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Secciones del Sitio Web</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 7 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Secciones del Sitio Web</h2>
         <p class="text-gray-400">¿Qué secciones les gustaría incluir en su página?</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger mb-10" id="sectionsCards">
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Inicio / Página principal" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="home" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Inicio / Página principal</p>
+          <i data-lucide="home" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Inicio / Página principal</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Sobre Nosotros / Nuestra Historia" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="info" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Sobre Nosotros</p>
+          <i data-lucide="info" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Sobre Nosotros</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Servicios y Tratamientos (detallado)" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="stethoscope" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Servicios y Tratamientos</p>
+          <i data-lucide="stethoscope" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Servicios y Tratamientos</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Nuestro Equipo" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="users" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Nuestro Equipo</p>
+          <i data-lucide="users" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Nuestro Equipo</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Blog / Artículos de Salud Dental" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="newspaper" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Blog / Artículos</p>
+          <i data-lucide="newspaper" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Blog / Artículos</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Preguntas Frecuentes (FAQ)" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="circle-help" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Preguntas Frecuentes</p>
+          <i data-lucide="circle-help" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Preguntas Frecuentes</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Casos de Éxito / Antes y Después" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="sparkles" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Antes y Después</p>
+          <i data-lucide="sparkles" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Antes y Después</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Testimonios" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="quote" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Testimonios</p>
+          <i data-lucide="quote" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Testimonios</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Contacto" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="phone" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Contacto</p>
+          <i data-lucide="phone" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Contacto</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Promociones / Ofertas" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="tag" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Promociones / Ofertas</p>
+          <i data-lucide="tag" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Promociones / Ofertas</p>
         </div>
         <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Portal de Pacientes (área privada)" onclick="toggleCard(this)">
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-          <i data-lucide="lock" class="w-6 h-6 text-teal-700 shrink-0"></i>
-          <p class="font-medium text-teal-900 text-sm">Portal de Pacientes</p>
+          <i data-lucide="lock" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Portal de Pacientes</p>
         </div>
       </div>
 
       <div>
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-3">¿Hay alguna sección que consideren imprescindible?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-3">¿Hay alguna sección que consideren imprescindible?</h3>
         <textarea class="form-input" id="seccionesImprescindibles" placeholder="Cuéntennos si hay algo que no puede faltar..." oninput="saveField('secciones_imprescindibles', this.value)"></textarea>
       </div>
     </div>
@@ -974,8 +977,8 @@
     <!-- STEP 8: Estilo Visual -->
     <div id="step8" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 8 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Estilo Visual</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 8 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Estilo Visual</h2>
         <p class="text-gray-400">Seleccionen los estilos que más les gusten y su paleta de colores preferida. Pueden elegir varios.</p>
       </div>
 
@@ -985,27 +988,27 @@
         <div class="style-card" data-field="estilos" data-value="Moderno y Minimalista" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-teal-900">Moderno y Minimalista</h3>
+              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Moderno y Minimalista</h3>
               <p class="text-sm text-gray-400">Líneas limpias, mucho espacio, tipografía elegante</p>
             </div>
-            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+            <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
           <div class="flex gap-4 mt-4">
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Moderno y Minimalista" data-palette="Blancos + gris claro + acento azul" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Moderno y Minimalista" data-palette="Blancos + gris claro + acento azul" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #F5F5F5;"></div>
               <div class="palette-dot" style="background: #D1D5DB;"></div>
               <div class="palette-dot" style="background: #3B82F6;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Azul</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Moderno y Minimalista" data-palette="Blancos + negro + verde menta" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Moderno y Minimalista" data-palette="Blancos + negro + verde menta" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
               <div class="palette-dot" style="background: #1A1A1A;"></div>
               <div class="palette-dot" style="background: #34D399;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Menta</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Moderno y Minimalista" data-palette="Crema + gris cálido + dorado" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Moderno y Minimalista" data-palette="Crema + gris cálido + dorado" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #FAF7F2;"></div>
               <div class="palette-dot" style="background: #9CA3AF;"></div>
               <div class="palette-dot" style="background: #C8A256;"></div>
@@ -1018,27 +1021,27 @@
         <div class="style-card" data-field="estilos" data-value="Cálido y Amigable" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-teal-900">Cálido y Amigable</h3>
+              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Cálido y Amigable</h3>
               <p class="text-sm text-gray-400">Formas redondeadas, colores suaves, sensación acogedora</p>
             </div>
-            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+            <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
           <div class="flex gap-4 mt-4">
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Cálido y Amigable" data-palette="Melocotón + rosa suave + terracota" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Cálido y Amigable" data-palette="Melocotón + rosa suave + terracota" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #FDDCB5;"></div>
               <div class="palette-dot" style="background: #F9A8D4;"></div>
               <div class="palette-dot" style="background: #C2705A;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Terracota</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Cálido y Amigable" data-palette="Crema + verde salvia + marrón" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Cálido y Amigable" data-palette="Crema + verde salvia + marrón" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #FEF3C7;"></div>
               <div class="palette-dot" style="background: #86EFAC;"></div>
               <div class="palette-dot" style="background: #8B6F47;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Salvia</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Cálido y Amigable" data-palette="Lavanda + rosa pálido + lila" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Cálido y Amigable" data-palette="Lavanda + rosa pálido + lila" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #DDD6FE;"></div>
               <div class="palette-dot" style="background: #FBCFE8;"></div>
               <div class="palette-dot" style="background: #A78BFA;"></div>
@@ -1051,27 +1054,27 @@
         <div class="style-card" data-field="estilos" data-value="Lujoso y Premium" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-teal-900">Lujoso y Premium</h3>
+              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Lujoso y Premium</h3>
               <p class="text-sm text-gray-400">Tonos oscuros, detalles dorados, tipografía serif</p>
             </div>
-            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+            <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
           <div class="flex gap-4 mt-4">
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Lujoso y Premium" data-palette="Negro + dorado + crema" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Lujoso y Premium" data-palette="Negro + dorado + crema" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #1A1A1A;"></div>
               <div class="palette-dot" style="background: #C8A256;"></div>
               <div class="palette-dot" style="background: #FAF7F2;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Dorado</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Lujoso y Premium" data-palette="Azul marino + cobre + blanco" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Lujoso y Premium" data-palette="Azul marino + cobre + blanco" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #1E3A5F;"></div>
               <div class="palette-dot" style="background: #B87333;"></div>
               <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Cobre</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Lujoso y Premium" data-palette="Esmeralda + dorado + negro" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Lujoso y Premium" data-palette="Esmeralda + dorado + negro" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #065F46;"></div>
               <div class="palette-dot" style="background: #D4AF37;"></div>
               <div class="palette-dot" style="background: #111827;"></div>
@@ -1084,27 +1087,27 @@
         <div class="style-card" data-field="estilos" data-value="Clínico y Profesional" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-teal-900">Clínico y Profesional</h3>
+              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Clínico y Profesional</h3>
               <p class="text-sm text-gray-400">Estructura clara, colores institucionales, confianza</p>
             </div>
-            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+            <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
           <div class="flex gap-4 mt-4">
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Clínico y Profesional" data-palette="Azul médico + blanco + gris" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Clínico y Profesional" data-palette="Azul médico + blanco + gris" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #2563EB;"></div>
               <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
               <div class="palette-dot" style="background: #9CA3AF;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Azul</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Clínico y Profesional" data-palette="Teal + blanco + gris oscuro" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Clínico y Profesional" data-palette="Teal + blanco + gris oscuro" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #0D4F4F;"></div>
               <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
               <div class="palette-dot" style="background: #374151;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Teal</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Clínico y Profesional" data-palette="Azul cielo + verde menta + blanco" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Clínico y Profesional" data-palette="Azul cielo + verde menta + blanco" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #7DD3FC;"></div>
               <div class="palette-dot" style="background: #6EE7B7;"></div>
               <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
@@ -1117,27 +1120,27 @@
         <div class="style-card" data-field="estilos" data-value="Fresco y Juvenil" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-teal-900">Fresco y Juvenil</h3>
+              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Fresco y Juvenil</h3>
               <p class="text-sm text-gray-400">Colores vibrantes, elementos dinámicos, energía</p>
             </div>
-            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+            <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
           <div class="flex gap-4 mt-4">
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Fresco y Juvenil" data-palette="Turquesa + coral + amarillo" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Fresco y Juvenil" data-palette="Turquesa + coral + amarillo" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #2DD4BF;"></div>
               <div class="palette-dot" style="background: #FB7185;"></div>
               <div class="palette-dot" style="background: #FBBF24;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Coral</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Fresco y Juvenil" data-palette="Violeta + rosa neón + azul eléctrico" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Fresco y Juvenil" data-palette="Violeta + rosa neón + azul eléctrico" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #8B5CF6;"></div>
               <div class="palette-dot" style="background: #F472B6;"></div>
               <div class="palette-dot" style="background: #3B82F6;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Neón</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Fresco y Juvenil" data-palette="Verde lima + naranja + blanco" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Fresco y Juvenil" data-palette="Verde lima + naranja + blanco" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #84CC16;"></div>
               <div class="palette-dot" style="background: #F97316;"></div>
               <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
@@ -1150,27 +1153,27 @@
         <div class="style-card" data-field="estilos" data-value="Natural y Orgánico" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-teal-900">Natural y Orgánico</h3>
+              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Natural y Orgánico</h3>
               <p class="text-sm text-gray-400">Tonos tierra, texturas naturales, calma</p>
             </div>
-            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+            <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
           <div class="flex gap-4 mt-4">
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Natural y Orgánico" data-palette="Verde oliva + beige + terracota" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Natural y Orgánico" data-palette="Verde oliva + beige + terracota" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #6B7E3A;"></div>
               <div class="palette-dot" style="background: #E8DCCA;"></div>
               <div class="palette-dot" style="background: #C2705A;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Oliva</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Natural y Orgánico" data-palette="Arena + verde bosque + marrón" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Natural y Orgánico" data-palette="Arena + verde bosque + marrón" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #D4C5A9;"></div>
               <div class="palette-dot" style="background: #166534;"></div>
               <div class="palette-dot" style="background: #78350F;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Bosque</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Natural y Orgánico" data-palette="Hueso + verde salvia + madera" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Natural y Orgánico" data-palette="Hueso + verde salvia + madera" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #F5F0E8;"></div>
               <div class="palette-dot" style="background: #86EFAC;"></div>
               <div class="palette-dot" style="background: #92400E;"></div>
@@ -1183,27 +1186,27 @@
         <div class="style-card" data-field="estilos" data-value="Elegante y Sofisticado" onclick="toggleStyleCard(this)">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <h3 class="font-display text-xl font-semibold text-teal-900">Elegante y Sofisticado</h3>
+              <h3 class="font-display text-xl font-semibold text-[#E8E2D6]">Elegante y Sofisticado</h3>
               <p class="text-sm text-gray-400">Balance entre lujo y accesibilidad, detalles cuidados</p>
             </div>
-            <div class="w-8 h-8 rounded-full border-2 border-gray-200 flex items-center justify-center style-check transition-all">
+            <div class="w-8 h-8 rounded-full border-2 border-dark-600 flex items-center justify-center style-check transition-all">
               <i data-lucide="check" class="w-4 h-4 text-white"></i>
             </div>
           </div>
           <div class="flex gap-4 mt-4">
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Elegante y Sofisticado" data-palette="Gris perla + rosa antiguo + dorado" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Elegante y Sofisticado" data-palette="Gris perla + rosa antiguo + dorado" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #D1D5DB;"></div>
               <div class="palette-dot" style="background: #BE8585;"></div>
               <div class="palette-dot" style="background: #C8A256;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Perla</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Elegante y Sofisticado" data-palette="Azul acero + blanco + bronce" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Elegante y Sofisticado" data-palette="Azul acero + blanco + bronce" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #4B6D8F;"></div>
               <div class="palette-dot" style="background: #FFFFFF; border-color: #ddd;"></div>
               <div class="palette-dot" style="background: #CD7F32;"></div>
               <span class="text-xs text-gray-400 hidden sm:inline">Acero</span>
             </div>
-            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition" data-style="Elegante y Sofisticado" data-palette="Nude + grafito + oro rosa" onclick="event.stopPropagation(); selectPalette(this)">
+            <div class="palette-group flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition" data-style="Elegante y Sofisticado" data-palette="Nude + grafito + oro rosa" onclick="event.stopPropagation(); selectPalette(this)">
               <div class="palette-dot" style="background: #E8D5C4;"></div>
               <div class="palette-dot" style="background: #374151;"></div>
               <div class="palette-dot" style="background: #E8A598;"></div>
@@ -1218,54 +1221,54 @@
     <!-- STEP 9: Info de Contacto -->
     <div id="step9" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 9 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Para Finalizar</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 9 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Para Finalizar</h2>
         <p class="text-gray-400">Déjennos sus datos de contacto y cualquier comentario adicional.</p>
       </div>
 
       <div class="mb-8">
-        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿En cuánto tiempo les gustaría tener su sitio listo?</h3>
+        <h3 class="font-display text-lg font-semibold text-[#E8E2D6] mb-4">¿En cuánto tiempo les gustaría tener su sitio listo?</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 card-stagger" id="timelineCards">
           <div class="select-card text-center" data-field="tiempo" data-value="1-2 semanas" onclick="selectSingle(this, 'timelineCards')">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="zap" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">1-2 semanas</p>
+            <i data-lucide="zap" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">1-2 semanas</p>
           </div>
           <div class="select-card text-center" data-field="tiempo" data-value="1 mes" onclick="selectSingle(this, 'timelineCards')">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="clock" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">1 mes</p>
+            <i data-lucide="clock" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">1 mes</p>
           </div>
           <div class="select-card text-center" data-field="tiempo" data-value="2-3 meses" onclick="selectSingle(this, 'timelineCards')">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="calendar" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">2-3 meses</p>
+            <i data-lucide="calendar" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">2-3 meses</p>
           </div>
           <div class="select-card text-center" data-field="tiempo" data-value="No tengo prisa" onclick="selectSingle(this, 'timelineCards')">
             <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
-            <i data-lucide="coffee" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
-            <p class="font-medium text-sm text-teal-900">No tengo prisa</p>
+            <i data-lucide="coffee" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">No tengo prisa</p>
           </div>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div>
-          <label class="block text-sm font-medium text-teal-900 mb-2">Nombre de contacto *</label>
+          <label class="block text-sm font-medium text-[#E8E2D6] mb-2">Nombre de contacto *</label>
           <input type="text" class="form-input" id="contactName" placeholder="Su nombre completo" oninput="saveField('nombre_contacto', this.value)">
         </div>
         <div>
-          <label class="block text-sm font-medium text-teal-900 mb-2">Teléfono *</label>
+          <label class="block text-sm font-medium text-[#E8E2D6] mb-2">Teléfono *</label>
           <input type="tel" class="form-input" id="contactPhone" placeholder="+57 300 000 0000" oninput="saveField('telefono', this.value)">
         </div>
         <div class="md:col-span-2">
-          <label class="block text-sm font-medium text-teal-900 mb-2">Correo electrónico</label>
+          <label class="block text-sm font-medium text-[#E8E2D6] mb-2">Correo electrónico</label>
           <input type="email" class="form-input" id="contactEmail" placeholder="correo@ejemplo.com" oninput="saveField('email', this.value)">
         </div>
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-teal-900 mb-2">¿Algún comentario adicional?</label>
+        <label class="block text-sm font-medium text-[#E8E2D6] mb-2">¿Algún comentario adicional?</label>
         <textarea class="form-input" id="comments" placeholder="Cualquier idea, referencia o detalle que quieran compartir..." oninput="saveField('comentarios', this.value)"></textarea>
       </div>
     </div>
@@ -1273,8 +1276,8 @@
     <!-- STEP 10: Resumen -->
     <div id="step10" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 10 de 10</p>
-        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Resumen de sus Respuestas</h2>
+        <p class="text-[#D4AF37] font-medium text-sm tracking-wider uppercase mb-2">Paso 10 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-[#E8E2D6] mb-2">Resumen de sus Respuestas</h2>
         <p class="text-gray-400">Revisen que todo esté correcto antes de enviar.</p>
       </div>
 
@@ -1295,13 +1298,13 @@
     </div>
 
     <!-- Navigation buttons (shown on steps 1-7) -->
-    <div id="navButtons" class="hidden fixed bottom-0 left-0 right-0 bg-cream-100/90 backdrop-blur-lg border-t border-gold-500/10 z-40">
+    <div id="navButtons" class="hidden fixed bottom-0 left-0 right-0 bg-dark-900/90 backdrop-blur-lg border-t border-gold-500/15 z-40">
       <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
         <button id="prevBtn" onclick="prevStep()" class="btn-secondary">
           <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2 align-middle"></i>
           Anterior
         </button>
-        <p class="text-xs text-gray-400 font-body hidden sm:block">Cuestionario realizado por <span class="text-teal-800 font-medium">Cristhian De Marchena</span></p>
+        <p class="text-xs text-gray-400 font-body hidden sm:block">Cuestionario realizado por <span class="text-gold-500 font-medium">Cristhian De Marchena</span></p>
         <button id="nextBtn" onclick="nextStep()" class="btn-primary">
           Siguiente
           <i data-lucide="arrow-right" class="w-4 h-4 inline ml-2 align-middle"></i>
@@ -1652,7 +1655,7 @@
               if (section.title === 'Estilos Visuales') {
                 const selected = formData.paletas[item];
                 const palettes = (Array.isArray(selected) && selected.length > 0) ? selected : getAllPalettesForStyle(item);
-                html += `<ul class="ml-4 list-disc list-inside text-gold-600">`;
+                html += `<ul class="ml-4 list-disc list-inside text-[#D4AF37]">`;
                 palettes.forEach(p => html += `<li>${p}</li>`);
                 html += `</ul>`;
               }
