@@ -1500,6 +1500,13 @@
             showToast('Seleccionen si les interesa la atención internacional');
             return false;
           }
+          if (!document.getElementById('intlDetails').classList.contains('hidden')) {
+            if (formData.intl_funciones.length === 0) {
+              shakeElement('intlFeaturesCards');
+              showToast('Seleccionen al menos una necesidad internacional');
+              return false;
+            }
+          }
           return true;
         case 4:
           if (formData.objetivos.length === 0) {
@@ -1520,6 +1527,18 @@
             shakeElement('chatbotInterest');
             showToast('Seleccionen si les interesa el asistente virtual');
             return false;
+          }
+          if (!document.getElementById('chatbotDetails').classList.contains('hidden')) {
+            if (formData.chatbot_funciones.length === 0) {
+              shakeElement('chatbotFeaturesCards');
+              showToast('Seleccionen al menos una función del asistente');
+              return false;
+            }
+            if (!formData.chatbot_importancia_ia) {
+              shakeElement('importanceScale');
+              showToast('Seleccionen qué tan importante es la inteligencia artificial');
+              return false;
+            }
           }
           return true;
         case 7:
