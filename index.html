@@ -386,7 +386,7 @@
         </div>
       </div>
       <div class="text-right hidden sm:block">
-        <p class="text-xs text-gray-400 font-body">Paso <span id="stepLabel">0</span> de 8</p>
+        <p class="text-xs text-gray-400 font-body">Paso <span id="stepLabel">0</span> de 10</p>
       </div>
     </div>
     <!-- Progress bar -->
@@ -423,7 +423,7 @@
     <!-- STEP 1: Presencia Digital Deseada -->
     <div id="step1" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 1 de 8</p>
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 1 de 10</p>
         <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Presencia Digital Deseada</h2>
         <p class="text-gray-400">Cuéntennos cómo les gustaría estar presentes en el mundo digital.</p>
       </div>
@@ -502,10 +502,178 @@
       </div>
     </div>
 
-    <!-- STEP 2: Objetivos -->
+    <!-- STEP 2: La Esencia de Axia -->
     <div id="step2" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 2 de 8</p>
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 2 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">La Esencia de Axia</h2>
+        <p class="text-gray-400">Conocer su identidad nos ayuda a crear textos y diseños que realmente los representen.</p>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-3">¿Qué representa Axia Odontología para ustedes?</h3>
+        <p class="text-sm text-gray-400 mb-3">Su filosofía, lo que los hace diferentes, por qué eligieron este camino.</p>
+        <textarea class="form-input" id="esencia" placeholder="Cuéntennos con sus propias palabras..." oninput="saveField('esencia', this.value)"></textarea>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-3">¿Cuál es la misión de la clínica?</h3>
+        <p class="text-sm text-gray-400 mb-3">El propósito principal que los guía como equipo.</p>
+        <textarea class="form-input" id="mision" placeholder="Ej: Brindar sonrisas saludables con calidez y tecnología de punta..." oninput="saveField('mision', this.value)"></textarea>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Cuáles son los valores de la clínica?</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 card-stagger" id="valoresCards">
+          <div class="select-card text-center" data-field="valores" data-value="Confianza" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="shield" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Confianza</p>
+          </div>
+          <div class="select-card text-center" data-field="valores" data-value="Calidez humana" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="heart" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Calidez humana</p>
+          </div>
+          <div class="select-card text-center" data-field="valores" data-value="Innovación y tecnología" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="cpu" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Innovación</p>
+          </div>
+          <div class="select-card text-center" data-field="valores" data-value="Excelencia profesional" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="award" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Excelencia</p>
+          </div>
+          <div class="select-card text-center" data-field="valores" data-value="Accesibilidad" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="hand-helping" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Accesibilidad</p>
+          </div>
+          <div class="select-card text-center" data-field="valores" data-value="Compromiso con el paciente" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="handshake" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Compromiso</p>
+          </div>
+          <div class="select-card text-center" data-field="valores" data-value="Transparencia" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="eye" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Transparencia</p>
+          </div>
+          <div class="select-card text-center" data-field="valores" data-value="Educación y prevención" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="graduation-cap" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Educación</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Cómo les gustaría que los pacientes los perciban?</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 card-stagger" id="percepcionCards">
+          <div class="select-card text-center" data-field="percepcion" data-value="Profesionales y confiables" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="briefcase" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Profesionales y confiables</p>
+          </div>
+          <div class="select-card text-center" data-field="percepcion" data-value="Cercanos y amigables" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="smile" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Cercanos y amigables</p>
+          </div>
+          <div class="select-card text-center" data-field="percepcion" data-value="Modernos e innovadores" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="rocket" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Modernos e innovadores</p>
+          </div>
+          <div class="select-card text-center" data-field="percepcion" data-value="Accesibles y económicos" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="wallet" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Accesibles y económicos</p>
+          </div>
+          <div class="select-card text-center" data-field="percepcion" data-value="Exclusivos y premium" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="gem" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Exclusivos y premium</p>
+          </div>
+          <div class="select-card text-center" data-field="percepcion" data-value="Expertos especializados" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="microscope" class="w-7 h-7 mx-auto mb-2 text-teal-700"></i>
+            <p class="font-medium text-sm text-teal-900">Expertos especializados</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Alcance y Atención Internacional -->
+    <div id="step3" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 3 de 10</p>
+        <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Alcance y Atención</h2>
+        <p class="text-gray-400">Barranquilla es un destino creciente para turismo dental. ¿Les interesa ese mercado?</p>
+      </div>
+
+      <div class="mb-10">
+        <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Les interesa atender pacientes internacionales?</h3>
+        <div class="toggle-group" id="intlInterest">
+          <div class="toggle-option" data-field="atencion_internacional" data-value="Sí, nos interesa" onclick="selectToggle(this, 'intlInterest'); toggleIntlDetails()">
+            <i data-lucide="check-circle" class="w-5 h-5 inline mr-2 align-middle text-green-600"></i>
+            Sí, nos interesa
+          </div>
+          <div class="toggle-option" data-field="atencion_internacional" data-value="No por ahora" onclick="selectToggle(this, 'intlInterest'); toggleIntlDetails()">
+            <i data-lucide="x-circle" class="w-5 h-5 inline mr-2 align-middle text-red-400"></i>
+            No por ahora
+          </div>
+          <div class="toggle-option" data-field="atencion_internacional" data-value="A futuro" onclick="selectToggle(this, 'intlInterest'); toggleIntlDetails()">
+            <i data-lucide="clock" class="w-5 h-5 inline mr-2 align-middle text-blue-400"></i>
+            A futuro
+          </div>
+        </div>
+      </div>
+
+      <div id="intlDetails" class="hidden">
+        <div class="mb-10">
+          <h3 class="font-display text-lg font-semibold text-teal-900 mb-4">¿Qué necesitarían para atender pacientes del exterior?</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 card-stagger" id="intlFeaturesCards">
+            <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Sitio web en inglés u otros idiomas" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="languages" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Sitio web en inglés u otros idiomas</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Precios en dólares (USD)" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="dollar-sign" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Precios en dólares (USD)</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Asistencia con viajes y hospedaje" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="plane" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Asistencia con viajes y hospedaje</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Coordinación de tratamientos para visitantes" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="clipboard-list" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Coordinación de tratamientos para visitantes</p>
+            </div>
+            <div class="select-card flex items-center gap-4" data-field="intl_funciones" data-value="Marketing dirigido a pacientes del exterior" onclick="toggleCard(this)">
+              <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+              <i data-lucide="globe" class="w-6 h-6 text-teal-700 shrink-0"></i>
+              <p class="font-medium text-teal-900 text-sm">Marketing dirigido al exterior</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <h3 class="font-display text-lg font-semibold text-teal-900 mb-3">¿De qué países o regiones esperan recibir pacientes?</h3>
+          <textarea class="form-input" id="intlPaises" placeholder="Ej: Estados Unidos, Panamá, el Caribe..." oninput="saveField('intl_paises', this.value)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Objetivos -->
+    <div id="step4" class="step-container hidden">
+      <div class="mb-8">
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 4 de 10</p>
         <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">¿Qué quieren lograr?</h2>
         <p class="text-gray-400">Seleccionen los objetivos más importantes para su clínica.</p>
       </div>
@@ -584,10 +752,10 @@
       </div>
     </div>
 
-    <!-- STEP 3: Funcionalidades -->
-    <div id="step3" class="step-container hidden">
+    <!-- STEP 5: Funcionalidades -->
+    <div id="step5" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 3 de 8</p>
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 5 de 10</p>
         <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Funcionalidades Deseadas</h2>
         <p class="text-gray-400">¿Qué herramientas les gustaría tener en su sitio web?</p>
       </div>
@@ -651,10 +819,10 @@
       </div>
     </div>
 
-    <!-- STEP 4: Chatbot y Automatización -->
-    <div id="step4" class="step-container hidden">
+    <!-- STEP 6: Chatbot y Automatización -->
+    <div id="step6" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 4 de 8</p>
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 6 de 10</p>
         <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Asistente Virtual y Automatización</h2>
         <p class="text-gray-400">Un chatbot en WhatsApp puede atender pacientes automáticamente, agendar citas y más.</p>
       </div>
@@ -731,10 +899,10 @@
       </div>
     </div>
 
-    <!-- STEP 5: Secciones -->
-    <div id="step5" class="step-container hidden">
+    <!-- STEP 7: Secciones -->
+    <div id="step7" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 5 de 8</p>
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 7 de 10</p>
         <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Secciones del Sitio Web</h2>
         <p class="text-gray-400">¿Qué secciones les gustaría incluir en su página?</p>
       </div>
@@ -803,10 +971,10 @@
       </div>
     </div>
 
-    <!-- STEP 6: Estilo Visual -->
-    <div id="step6" class="step-container hidden">
+    <!-- STEP 8: Estilo Visual -->
+    <div id="step8" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 6 de 8</p>
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 8 de 10</p>
         <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Estilo Visual</h2>
         <p class="text-gray-400">Seleccionen los estilos que más les gusten y su paleta de colores preferida. Pueden elegir varios.</p>
       </div>
@@ -1047,10 +1215,10 @@
       </div>
     </div>
 
-    <!-- STEP 7: Info de Contacto -->
-    <div id="step7" class="step-container hidden">
+    <!-- STEP 9: Info de Contacto -->
+    <div id="step9" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 7 de 8</p>
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 9 de 10</p>
         <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Para Finalizar</h2>
         <p class="text-gray-400">Déjennos sus datos de contacto y cualquier comentario adicional.</p>
       </div>
@@ -1102,10 +1270,10 @@
       </div>
     </div>
 
-    <!-- STEP 8: Resumen -->
-    <div id="step8" class="step-container hidden">
+    <!-- STEP 10: Resumen -->
+    <div id="step10" class="step-container hidden">
       <div class="mb-8">
-        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 8 de 8</p>
+        <p class="text-gold-600 font-medium text-sm tracking-wider uppercase mb-2">Paso 10 de 10</p>
         <h2 class="font-display text-3xl font-bold text-teal-900 mb-2">Resumen de sus Respuestas</h2>
         <p class="text-gray-400">Revisen que todo esté correcto antes de enviar.</p>
       </div>
@@ -1152,12 +1320,19 @@
     // STATE MANAGEMENT
     // ==========================================
     let currentStep = 0;
-    const totalSteps = 9; // 0-8
+    const totalSteps = 11; // 0-10
 
     // Load saved data or initialize
     let formData = JSON.parse(localStorage.getItem('axia_form_data')) || {
       redes: [],
       descubrimiento: [],
+      esencia: '',
+      mision: '',
+      valores: [],
+      percepcion: [],
+      atencion_internacional: '',
+      intl_funciones: [],
+      intl_paises: '',
       objetivos: [],
       funcionalidades: [],
       chatbot_interes: '',
@@ -1217,7 +1392,7 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         // Generate summary if on last step
-        if (currentStep === 8) {
+        if (currentStep === 10) {
           generateSummary();
         }
       }, 300);
@@ -1225,7 +1400,7 @@
 
     function nextStep() {
       if (!validateStep(currentStep)) return;
-      if (currentStep < 8) goToStep(currentStep + 1);
+      if (currentStep < 10) goToStep(currentStep + 1);
     }
 
     function prevStep() {
@@ -1234,7 +1409,7 @@
 
     function updateUI() {
       // Progress bar
-      const progress = currentStep === 0 ? 0 : (currentStep / 8) * 100;
+      const progress = currentStep === 0 ? 0 : (currentStep / 10) * 100;
       document.getElementById('progressBar').style.width = `${progress}%`;
 
       // Step label
@@ -1242,7 +1417,7 @@
 
       // Nav buttons
       const nav = document.getElementById('navButtons');
-      if (currentStep === 0 || currentStep === 8) {
+      if (currentStep === 0 || currentStep === 10) {
         nav.classList.add('hidden');
       } else {
         nav.classList.remove('hidden');
@@ -1253,7 +1428,7 @@
 
       // Change next to "Ver Resumen" on step 7
       const nextBtn = document.getElementById('nextBtn');
-      if (currentStep === 7) {
+      if (currentStep === 9) {
         nextBtn.innerHTML = 'Ver Resumen <i data-lucide="check-circle" class="w-4 h-4 inline ml-2 align-middle"></i>';
       } else {
         nextBtn.innerHTML = 'Siguiente <i data-lucide="arrow-right" class="w-4 h-4 inline ml-2 align-middle"></i>';
@@ -1273,14 +1448,14 @@
             return false;
           }
           return true;
-        case 2:
+        case 4:
           if (formData.objetivos.length === 0) {
             shakeElement('goalsCards');
             showToast('Seleccionen al menos un objetivo');
             return false;
           }
           return true;
-        case 7:
+        case 9:
           if (!formData.nombre_contacto.trim()) {
             shakeElement('contactName');
             showToast('Por favor ingrese su nombre');
@@ -1336,16 +1511,28 @@
 
     function selectToggle(el, groupId) {
       const group = document.getElementById(groupId);
+      const field = el.dataset.field;
       group.querySelectorAll('.toggle-option').forEach(o => o.classList.remove('selected'));
       el.classList.add('selected');
 
       const value = el.dataset.value;
-      formData.chatbot_interes = value;
+      formData[field] = value;
       saveData();
 
       // Show/hide chatbot details
-      const details = document.getElementById('chatbotDetails');
-      if (value === 'No por ahora') {
+      if (field === 'chatbot_interes') {
+        const details = document.getElementById('chatbotDetails');
+        if (value === 'No por ahora') {
+          details.classList.add('hidden');
+        } else {
+          details.classList.remove('hidden');
+        }
+      }
+    }
+
+    function toggleIntlDetails() {
+      const details = document.getElementById('intlDetails');
+      if (formData.atencion_internacional === 'No por ahora') {
         details.classList.add('hidden');
       } else {
         details.classList.remove('hidden');
@@ -1436,6 +1623,13 @@
       const sections = [
         { title: 'Redes Sociales Deseadas', data: formData.redes },
         { title: 'Cómo Quieren Ser Encontrados', data: formData.descubrimiento },
+        { title: 'Esencia de Axia', data: formData.esencia ? [formData.esencia] : [] },
+        { title: 'Misión', data: formData.mision ? [formData.mision] : [] },
+        { title: 'Valores', data: formData.valores },
+        { title: 'Percepción Deseada', data: formData.percepcion },
+        { title: 'Atención Internacional', data: formData.atencion_internacional ? [formData.atencion_internacional] : [] },
+        { title: 'Necesidades Internacionales', data: formData.intl_funciones },
+        { title: 'Países/Regiones Objetivo', data: formData.intl_paises ? [formData.intl_paises] : [] },
         { title: 'Objetivos', data: formData.objetivos },
         { title: 'Funcionalidades', data: formData.funcionalidades },
         { title: 'Asistente Virtual (Chatbot)', data: formData.chatbot_interes ? [formData.chatbot_interes] : [] },
@@ -1509,6 +1703,41 @@
       if (formData.descubrimiento.length) {
         md += `## Cómo Quieren Ser Encontrados\n`;
         formData.descubrimiento.forEach(d => md += `- ${d}\n`);
+        md += '\n';
+      }
+
+      if (formData.esencia) {
+        md += `## Esencia de Axia\n`;
+        md += `${formData.esencia}\n\n`;
+      }
+
+      if (formData.mision) {
+        md += `## Misión\n`;
+        md += `${formData.mision}\n\n`;
+      }
+
+      if (formData.valores.length) {
+        md += `## Valores\n`;
+        formData.valores.forEach(v => md += `- ${v}\n`);
+        md += '\n';
+      }
+
+      if (formData.percepcion.length) {
+        md += `## Percepción Deseada\n`;
+        formData.percepcion.forEach(p => md += `- ${p}\n`);
+        md += '\n';
+      }
+
+      if (formData.atencion_internacional) {
+        md += `## Atención Internacional\n`;
+        md += `- Interés: ${formData.atencion_internacional}\n`;
+        if (formData.intl_funciones.length) {
+          md += `- Necesidades:\n`;
+          formData.intl_funciones.forEach(f => md += `  - ${f}\n`);
+        }
+        if (formData.intl_paises) {
+          md += `- Países/regiones: ${formData.intl_paises}\n`;
+        }
         md += '\n';
       }
 
@@ -1617,6 +1846,18 @@
         }
       });
 
+      // Restore international interest
+      if (formData.atencion_internacional) {
+        document.querySelectorAll('#intlInterest .toggle-option').forEach(opt => {
+          if (opt.dataset.value === formData.atencion_internacional) {
+            opt.classList.add('selected');
+            if (formData.atencion_internacional !== 'No por ahora') {
+              document.getElementById('intlDetails').classList.remove('hidden');
+            }
+          }
+        });
+      }
+
       // Restore chatbot interest
       if (formData.chatbot_interes) {
         document.querySelectorAll('#chatbotInterest .toggle-option').forEach(opt => {
@@ -1662,6 +1903,9 @@
       });
 
       // Restore text fields
+      if (formData.esencia) document.getElementById('esencia').value = formData.esencia;
+      if (formData.mision) document.getElementById('mision').value = formData.mision;
+      if (formData.intl_paises) document.getElementById('intlPaises').value = formData.intl_paises;
       if (formData.secciones_imprescindibles) document.getElementById('seccionesImprescindibles').value = formData.secciones_imprescindibles;
       if (formData.nombre_contacto) document.getElementById('contactName').value = formData.nombre_contacto;
       if (formData.telefono) document.getElementById('contactPhone').value = formData.telefono;
