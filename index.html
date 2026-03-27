@@ -99,6 +99,14 @@
     .card-stagger > *:nth-child(9) { animation-delay: 0.45s; }
     .card-stagger > *:nth-child(10) { animation-delay: 0.5s; }
     .card-stagger > *:nth-child(11) { animation-delay: 0.55s; }
+    .card-stagger > *:nth-child(12) { animation-delay: 0.6s; }
+    .card-stagger > *:nth-child(13) { animation-delay: 0.65s; }
+    .card-stagger > *:nth-child(14) { animation-delay: 0.7s; }
+    .card-stagger > *:nth-child(15) { animation-delay: 0.75s; }
+    .card-stagger > *:nth-child(16) { animation-delay: 0.8s; }
+    .card-stagger > *:nth-child(17) { animation-delay: 0.85s; }
+    .card-stagger > *:nth-child(18) { animation-delay: 0.9s; }
+    .card-stagger > *:nth-child(19) { animation-delay: 0.95s; }
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
@@ -435,7 +443,7 @@
           Queremos entender qué necesitan para llevar su clínica al mundo digital.
         </p>
         <p class="text-base text-gray-400 max-w-md mx-auto mb-10">
-          Este cuestionario les ayudará a describir sus ideas y necesidades de forma sencilla. Toma aproximadamente <strong class="text-gold-500">5 minutos</strong>.
+          Este cuestionario les ayudará a describir sus ideas y necesidades de forma sencilla. Toma aproximadamente <strong class="text-gold-500">7 minutos</strong>.
         </p>
         <button onclick="goToStep(1)" class="btn-primary text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-5">
           Comenzar
@@ -627,6 +635,55 @@
           </div>
         </div>
       </div>
+
+      <div class="mb-8">
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-3">¿Qué los hace diferentes de otras clínicas?</h3>
+        <p class="text-sm text-gray-400 mb-3">Su servicio estrella, método especial, promesa al paciente, o enfoque único.</p>
+        <textarea class="form-input" id="diferenciador" placeholder="Ej: Somos los únicos en la ciudad con tecnología CEREC para restauraciones en una sola cita..." oninput="saveField('diferenciador', this.value)"></textarea>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-3">¿Tienen credenciales o certificaciones que quieran destacar?</h3>
+        <p class="text-sm text-gray-400 mb-3">Formación internacional, certificaciones especiales, afiliaciones profesionales, premios.</p>
+        <textarea class="form-input" id="credenciales" placeholder="Ej: Especialización en NYU, certificación en implantes Bicon, miembros de la Federación Odontológica..." oninput="saveField('credenciales', this.value)"></textarea>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">¿Cuentan con tecnología o equipos especiales?</h3>
+        <p class="text-sm text-gray-400 mb-4">Seleccionen los que apliquen</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 card-stagger" id="tecnologiaCards">
+          <div class="select-card text-center" data-field="tecnologia" data-value="Radiografía digital / Panorámica" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="scan" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Radiografía digital</p>
+          </div>
+          <div class="select-card text-center" data-field="tecnologia" data-value="Scanner intraoral" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="scan-line" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Scanner intraoral</p>
+          </div>
+          <div class="select-card text-center" data-field="tecnologia" data-value="CAD/CAM / CEREC" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="monitor" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">CAD/CAM / CEREC</p>
+          </div>
+          <div class="select-card text-center" data-field="tecnologia" data-value="Láser dental" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="zap" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Láser dental</p>
+          </div>
+          <div class="select-card text-center" data-field="tecnologia" data-value="Microscopio" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="microscope" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Microscopio</p>
+          </div>
+          <div class="select-card text-center" data-field="tecnologia" data-value="Laboratorio propio" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="flask-conical" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Laboratorio propio</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- STEP 3: Alcance y Atención Internacional -->
@@ -774,6 +831,71 @@
           </div>
         </div>
       </div>
+
+      <div class="mt-10">
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-2">¿Qué servicios o tratamientos ofrece la clínica?</h3>
+        <p class="text-sm text-gray-400 mb-4">Seleccionen todos los que apliquen. Esto nos ayuda a planear las páginas de servicios.</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 card-stagger" id="serviciosCards">
+          <div class="select-card text-center" data-field="servicios" data-value="Diseño de Sonrisa" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="sparkles" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Diseño de Sonrisa</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Implantes Dentales" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="pin" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Implantes Dentales</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Ortodoncia / Brackets" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="align-center-horizontal" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Ortodoncia / Brackets</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Blanqueamiento" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="sun" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Blanqueamiento</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Endodoncia" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="target" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Endodoncia</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Periodoncia" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="heart-pulse" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Periodoncia</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Odontología Pediátrica" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="baby" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Odontopediatría</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Prótesis / Coronas" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="crown" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Prótesis / Coronas</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Cirugía Oral" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="scissors" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Cirugía Oral</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Limpieza / Profilaxis" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="droplets" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Limpieza / Profilaxis</p>
+          </div>
+          <div class="select-card text-center" data-field="servicios" data-value="Rehabilitación Oral" onclick="toggleCard(this)">
+            <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+            <i data-lucide="rotate-ccw" class="w-7 h-7 mx-auto mb-2 text-gold-500"></i>
+            <p class="font-medium text-sm text-[#E8E2D6]">Rehabilitación Oral</p>
+          </div>
+        </div>
+        <div class="mt-4">
+          <textarea class="form-input" id="serviciosOtros" placeholder="¿Ofrecen algún otro servicio? Descríbanlo aquí..." oninput="saveField('servicios_otros', this.value)"></textarea>
+        </div>
+      </div>
     </div>
 
     <!-- STEP 5: Funcionalidades -->
@@ -839,6 +961,46 @@
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
           <i data-lucide="shopping-cart" class="w-6 h-6 text-gold-500 shrink-0"></i>
           <p class="font-medium text-[#E8E2D6]">Tienda en línea</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Video testimonios de pacientes" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="video" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Video testimonios</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Videos promocionales / institucionales" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="clapperboard" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Videos promocionales</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Reseñas de Google / Doctoralia" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="star" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Reseñas de Google / Doctoralia</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Consulta virtual / Valoración en línea" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="monitor-smartphone" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Consulta virtual / Valoración en línea</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Portal de pagos en línea" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="credit-card" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Portal de pagos en línea</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Newsletter / Captura de correos" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="mails" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Newsletter / Captura de correos</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Analítica web (Google Analytics, Pixel)" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="bar-chart-3" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Analítica web (GA, Pixel)</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="funcionalidades" data-value="Sistema PQRS / Canal de quejas" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="message-square-warning" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6]">Sistema PQRS / Quejas</p>
         </div>
       </div>
     </div>
@@ -986,6 +1148,16 @@
           <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
           <i data-lucide="lock" class="w-6 h-6 text-gold-500 shrink-0"></i>
           <p class="font-medium text-[#E8E2D6] text-sm">Portal de Pacientes</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Instalaciones / Tour Virtual" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="building-2" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Instalaciones / Tour Virtual</p>
+        </div>
+        <div class="select-card flex items-center gap-4" data-field="secciones" data-value="Certificaciones / Acreditaciones" onclick="toggleCard(this)">
+          <div class="check-mark"><i data-lucide="check" class="w-4 h-4"></i></div>
+          <i data-lucide="badge-check" class="w-6 h-6 text-gold-500 shrink-0"></i>
+          <p class="font-medium text-[#E8E2D6] text-sm">Certificaciones / Acreditaciones</p>
         </div>
       </div>
 
@@ -1288,6 +1460,31 @@
         </div>
       </div>
 
+      <div class="mb-8">
+        <h3 class="font-display text-base sm:text-lg font-semibold text-[#E8E2D6] mb-4">Datos de la clínica</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-[#E8E2D6] mb-2">Dirección de la clínica</label>
+            <input type="text" class="form-input" id="direccion" placeholder="Ej: Calle 80 #50-67, Local 301, CC. Plaza Central, Barranquilla" oninput="saveField('direccion', this.value)">
+          </div>
+        </div>
+        <p class="text-sm text-gray-400 mb-3">Horario de atención</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">Lunes a Viernes</label>
+            <input type="text" class="form-input" id="horarioLV" placeholder="Ej: 8:00 AM - 6:00 PM" oninput="saveField('horario_lv', this.value)">
+          </div>
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">Sábados</label>
+            <input type="text" class="form-input" id="horarioSab" placeholder="Ej: 8:00 AM - 1:00 PM" oninput="saveField('horario_sabado', this.value)">
+          </div>
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">Domingos / Festivos</label>
+            <input type="text" class="form-input" id="horarioDom" placeholder="Ej: Cerrado" oninput="saveField('horario_domingo', this.value)">
+          </div>
+        </div>
+      </div>
+
       <div>
         <label class="block text-sm font-medium text-[#E8E2D6] mb-2">¿Algún comentario adicional?</label>
         <textarea class="form-input" id="comments" placeholder="Cualquier idea, referencia o detalle que quieran compartir..." oninput="saveField('comentarios', this.value)"></textarea>
@@ -1361,10 +1558,15 @@
       mision: '',
       valores: [],
       percepcion: [],
+      diferenciador: '',
+      credenciales: '',
+      tecnologia: [],
       atencion_internacional: '',
       intl_funciones: [],
       intl_paises: '',
       objetivos: [],
+      servicios: [],
+      servicios_otros: '',
       funcionalidades: [],
       chatbot_interes: '',
       chatbot_funciones: [],
@@ -1377,6 +1579,10 @@
       nombre_contacto: '',
       telefono: '',
       email: '',
+      direccion: '',
+      horario_lv: '',
+      horario_sabado: '',
+      horario_domingo: '',
       comentarios: ''
     };
 
@@ -1522,6 +1728,11 @@
           if (formData.objetivos.length === 0) {
             shakeElement('goalsCards');
             showToast('Seleccionen al menos un objetivo');
+            return false;
+          }
+          if (formData.servicios.length === 0) {
+            shakeElement('serviciosCards');
+            showToast('Seleccionen al menos un servicio que ofrezca la clínica');
             return false;
           }
           return true;
@@ -1742,10 +1953,15 @@
         { title: 'Misión', data: formData.mision ? [formData.mision] : [] },
         { title: 'Valores', data: formData.valores },
         { title: 'Percepción Deseada', data: formData.percepcion },
+        { title: 'Diferenciador Único', data: formData.diferenciador ? [formData.diferenciador] : [] },
+        { title: 'Credenciales y Certificaciones', data: formData.credenciales ? [formData.credenciales] : [] },
+        { title: 'Tecnología y Equipos', data: formData.tecnologia },
         { title: 'Atención Internacional', data: formData.atencion_internacional ? [formData.atencion_internacional] : [] },
         { title: 'Necesidades Internacionales', data: formData.intl_funciones },
         { title: 'Países/Regiones Objetivo', data: formData.intl_paises ? [formData.intl_paises] : [] },
         { title: 'Objetivos', data: formData.objetivos },
+        { title: 'Servicios que Ofrecen', data: formData.servicios },
+        { title: 'Otros Servicios', data: formData.servicios_otros ? [formData.servicios_otros] : [] },
         { title: 'Funcionalidades', data: formData.funcionalidades },
         { title: 'Asistente Virtual (Chatbot)', data: formData.chatbot_interes ? [formData.chatbot_interes] : [] },
         { title: 'Funciones del Chatbot', data: formData.chatbot_funciones },
@@ -1789,6 +2005,17 @@
         if (formData.nombre_contacto) html += `<p><strong>Nombre:</strong> ${formData.nombre_contacto}</p>`;
         if (formData.telefono) html += `<p><strong>Teléfono:</strong> ${formData.telefono}</p>`;
         if (formData.email) html += `<p><strong>Email:</strong> ${formData.email}</p>`;
+        if (formData.direccion) html += `<p><strong>Dirección:</strong> ${formData.direccion}</p>`;
+        html += `</div>`;
+      }
+
+      // Clinic hours
+      if (formData.horario_lv || formData.horario_sabado || formData.horario_domingo) {
+        html += `<div class="summary-block">`;
+        html += `<h4>Horario de Atención</h4>`;
+        if (formData.horario_lv) html += `<p><strong>Lunes a Viernes:</strong> ${formData.horario_lv}</p>`;
+        if (formData.horario_sabado) html += `<p><strong>Sábados:</strong> ${formData.horario_sabado}</p>`;
+        if (formData.horario_domingo) html += `<p><strong>Domingos/Festivos:</strong> ${formData.horario_domingo}</p>`;
         html += `</div>`;
       }
 
@@ -1843,6 +2070,22 @@
         md += '\n';
       }
 
+      if (formData.diferenciador) {
+        md += `## Diferenciador Único\n`;
+        md += `${formData.diferenciador}\n\n`;
+      }
+
+      if (formData.credenciales) {
+        md += `## Credenciales y Certificaciones\n`;
+        md += `${formData.credenciales}\n\n`;
+      }
+
+      if (formData.tecnologia && formData.tecnologia.length) {
+        md += `## Tecnología y Equipos\n`;
+        formData.tecnologia.forEach(t => md += `- ${t}\n`);
+        md += '\n';
+      }
+
       if (formData.atencion_internacional) {
         md += `## Atención Internacional\n`;
         md += `- Interés: ${formData.atencion_internacional}\n`;
@@ -1859,6 +2102,15 @@
       if (formData.objetivos.length) {
         md += `## Objetivos\n`;
         formData.objetivos.forEach(o => md += `- ${o}\n`);
+        md += '\n';
+      }
+
+      if (formData.servicios && formData.servicios.length) {
+        md += `## Servicios que Ofrecen\n`;
+        formData.servicios.forEach(s => md += `- ${s}\n`);
+        if (formData.servicios_otros) {
+          md += `- Otros: ${formData.servicios_otros}\n`;
+        }
         md += '\n';
       }
 
@@ -1906,7 +2158,16 @@
       if (formData.nombre_contacto) md += `- **Nombre:** ${formData.nombre_contacto}\n`;
       if (formData.telefono) md += `- **Teléfono:** ${formData.telefono}\n`;
       if (formData.email) md += `- **Email:** ${formData.email}\n`;
+      if (formData.direccion) md += `- **Dirección:** ${formData.direccion}\n`;
       md += '\n';
+
+      if (formData.horario_lv || formData.horario_sabado || formData.horario_domingo) {
+        md += `## Horario de Atención\n`;
+        if (formData.horario_lv) md += `- **Lunes a Viernes:** ${formData.horario_lv}\n`;
+        if (formData.horario_sabado) md += `- **Sábados:** ${formData.horario_sabado}\n`;
+        if (formData.horario_domingo) md += `- **Domingos/Festivos:** ${formData.horario_domingo}\n`;
+        md += '\n';
+      }
 
       if (formData.comentarios) {
         md += `## Comentarios Adicionales\n`;
@@ -2020,11 +2281,18 @@
       // Restore text fields
       if (formData.esencia) document.getElementById('esencia').value = formData.esencia;
       if (formData.mision) document.getElementById('mision').value = formData.mision;
+      if (formData.diferenciador) document.getElementById('diferenciador').value = formData.diferenciador;
+      if (formData.credenciales) document.getElementById('credenciales').value = formData.credenciales;
       if (formData.intl_paises) document.getElementById('intlPaises').value = formData.intl_paises;
+      if (formData.servicios_otros) document.getElementById('serviciosOtros').value = formData.servicios_otros;
       if (formData.secciones_imprescindibles) document.getElementById('seccionesImprescindibles').value = formData.secciones_imprescindibles;
       if (formData.nombre_contacto) document.getElementById('contactName').value = formData.nombre_contacto;
       if (formData.telefono) document.getElementById('contactPhone').value = formData.telefono;
       if (formData.email) document.getElementById('contactEmail').value = formData.email;
+      if (formData.direccion) document.getElementById('direccion').value = formData.direccion;
+      if (formData.horario_lv) document.getElementById('horarioLV').value = formData.horario_lv;
+      if (formData.horario_sabado) document.getElementById('horarioSab').value = formData.horario_sabado;
+      if (formData.horario_domingo) document.getElementById('horarioDom').value = formData.horario_domingo;
       if (formData.comentarios) document.getElementById('comments').value = formData.comentarios;
     }
 
